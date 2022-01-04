@@ -6,12 +6,14 @@ def worker():
     """
     print("【进程】id：%d，名称：%s" % (
         multiprocessing.current_process().pid,
-        multiprocessing.current_process().name))
+        multiprocessing.current_process().name)
+    )
 
 def main():
     print("【主进程】id：%d，名称：%s" % (
         multiprocessing.current_process().pid,
-        multiprocessing.current_process().name))
+        multiprocessing.current_process().name)
+    )
     
     # 创建3个进程
     for i in range(3):
