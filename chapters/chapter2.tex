@@ -298,3 +298,30 @@ int main() {
 
 \subsection{进程调度（Scheduling）}
 
+\begin{enumerate}
+	\item 短程调度（STS, Short Term Scheduling）：从准备队列中选择进程送到CPU执行。
+	
+	\item 中程调度（MTS, Medium Term Scheduling）：从将外存中挂起的进程中选择进程送到内存。
+	
+	\item 长程调度（LTS, Long Term Scheduling）：从外存中选择一个作业送到内存中，为其创建进程，并加入准备队列。
+\end{enumerate}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[node distance=4.5cm,thick,auto]
+		\node[state,initial] (s1) {New};
+		\node[state] (s2)[below of=s1] {Ready};
+		\node[state] (s3)[below of=s2] {Running};
+		\node[state] (s4)[left of=s3] {Waiting};
+		\node[state] (s4)[below of=s4] {Suspended};
+		\node[state,accepting below,accepting text = {end}] (s4)[right of=s3] {Terminated};
+
+		% \path[->] (s1) edge node[left] {admitted (LTS)} (s2);
+		% \path[->] (s2) edge[bend left] node[above] {scheduler dispatch (STS)} (s3);
+		% \path[->] (s3) edge[bend left] node[below] {interrupt} (s2);
+		% \path[->] (s3) edge node[right] {I/O or event waiting} (s4);
+		% \path[->] (s4) edge node[left] {swapping out (MTS)} (s5);
+		% \path[->] (s3) edge node {终止} (s5);
+	\end{tikzpicture}
+	\caption{进程调度}
+\end{figure}
