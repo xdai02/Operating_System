@@ -32,7 +32,8 @@ def main():
     # 创建多个售票进程
     sellers = [
         multiprocessing.Process(
-            target=sell_ticket, args=(lock, ticket_dict)) 
+            target=sell_ticket, args=(lock, ticket_dict)
+        ) 
         for _ in range(5)
     ]
 

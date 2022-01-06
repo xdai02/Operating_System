@@ -14,7 +14,7 @@ def sell_ticket(dict):
                 num
             ))
             dict.update({"ticket":num})     # 更新票数
-        else:                # 已经没有票了
+        else:                               # 已经没有票了
             break
 
 def main():
@@ -26,7 +26,8 @@ def main():
     # 创建多个售票进程
     sellers = [
         multiprocessing.Process(
-            target=sell_ticket, args=(ticket_dict,)) 
+            target=sell_ticket, args=(ticket_dict,)
+        ) 
         for _ in range(5)
     ]
 

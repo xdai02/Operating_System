@@ -28,10 +28,14 @@ def main():
     # 管道分为发送端和接收端
     send_end, recv_end = multiprocessing.Pipe()
     # 创建两个子进程，将管道传递到对应的处理函数
-    sender = multiprocessing.Process(target=send_data, 
-                                    args=(send_end, "Hello!"))
-    receiver = multiprocessing.Process(target=recv_data, 
-                                    args=(recv_end,))
+    sender = multiprocessing.Process(
+                target=send_data,
+                args=(send_end, "Hello!")
+            )
+    receiver = multiprocessing.Process(
+                target=recv_data,
+                args=(recv_end,)
+            )
     sender.start()
     receiver.start()
 

@@ -32,9 +32,13 @@ def consume(queue):
 def main():
     queue = multiprocessing.Queue()
     producer = multiprocessing.Process(
-                target=produce, name="Producer", args=(queue,))
+                target=produce, name="Producer",
+                args=(queue,)
+            )
     consumer = multiprocessing.Process(
-                target=consume, name="Consumer", args=(queue,))
+                target=consume, name="Consumer",
+                args=(queue,)
+            )
     producer.start()
     consumer.start()
 
