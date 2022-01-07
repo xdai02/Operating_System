@@ -25,6 +25,12 @@
 \usetikzlibrary{calc,shapes.multipart,chains,arrows}
 \usetikzlibrary{automata, positioning, arrows}
 
+\usetikzlibrary{arrows,positioning, calc,lindenmayersystems,decorations.pathmorphing,intersections}
+\tikzstyle{resource}= [draw,minimum size=30pt,inner sep=0pt]
+\tikzstyle{process} = [draw,minimum size=30pt,inner sep=0pt,circle]
+\tikzstyle{allocated} = [->,thick,arrows={-latex}]
+\tikzstyle{requested} = [<-,thick,arrows={latex-}, dashed]
+
 \def\rlwd{.5pt} \def\rlht{2.2ex} \def\rldp{.5ex}
 \def\mydiv#1{~%
   \rule[-\rldp]{\rlwd}{\rlht}%
