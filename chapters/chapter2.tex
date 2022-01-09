@@ -1254,21 +1254,21 @@ do {
 
 	\item 循环等待（circular wait）：一定会有一个环互相等待。
 
-	\begin{figure}[H]
-		\centering
-		\begin{tikzpicture}[scale=4]
-			\node (p1)[process] at (0,2) {$ P_1 $};
-			\node (r1)[resource] at (1,2) {$ R_1 $};
-			\node (p2)[process] at (1,1) {$ P_2 $};
-			\node (r2)[resource] at (0,1) {$ R_2 $};
-			
-			\draw[requested] (r1) -- (p1);
-			\draw[allocated] (r1) -- (p2);
-			\draw[requested] (r2) -- (p2);
-			\draw[allocated] (r2) -- (p1);
-		\end{tikzpicture}
-		\caption{循环等待}
-	\end{figure}
+	      \begin{figure}[H]
+		      \centering
+		      \begin{tikzpicture}[scale=4]
+			      \node (p1)[process] at (0,2) {$ P_1 $};
+			      \node (r1)[resource] at (1,2) {$ R_1 $};
+			      \node (p2)[process] at (1,1) {$ P_2 $};
+			      \node (r2)[resource] at (0,1) {$ R_2 $};
+
+			      \draw[requested] (r1) -- (p1);
+			      \draw[allocated] (r1) -- (p2);
+			      \draw[requested] (r2) -- (p2);
+			      \draw[allocated] (r2) -- (p1);
+		      \end{tikzpicture}
+		      \caption{循环等待}
+	      \end{figure}
 \end{enumerate}
 
 \subsection{资源分配图（Resouce Allocation Graph）}
@@ -1292,7 +1292,7 @@ do {
 		\node (r2)[resource] at (1,1) {$ R_2 $};
 		\node at (0.95,0.9) [circle,fill,inner sep=1.5pt]{};
 		\node at (1.05,0.9) [circle,fill,inner sep=1.5pt]{};
-		
+
 		\draw[requested] (r1) -- (p1);
 		\draw[allocated] (r1) -- (p2);
 		\draw[requested] (r3) -- (p2);
@@ -1320,7 +1320,7 @@ do {
 		\node (r2)[resource] at (1,1) {$ R_2 $};
 		\node at (0.95,0.9) [circle,fill,inner sep=1.5pt]{};
 		\node at (1.05,0.9) [circle,fill,inner sep=1.5pt]{};
-		
+
 		\draw[requested] (r1) -- (p1);
 		\draw[allocated] (r1) -- (p2);
 		\draw[requested] (r3) -- (p2);
@@ -1346,7 +1346,7 @@ do {
 		\node (p2)[process] at (2,2) {$ P_2 $};
 		\node (p3)[process] at (2,1.5) {$ P_3 $};
 		\node (p4)[process] at (2,1) {$ P_4 $};
-		
+
 		\draw[requested] (r1) -- (p1);
 		\draw[allocated] (r1) -- (p2);
 		\draw[allocated] (r1) -- (p3);
@@ -1367,7 +1367,7 @@ do {
 
 \begin{enumerate}
 	\item 破坏``互斥"条件：由于资源互斥是资源使用的固有特性是无法改变的。
-	
+
 	\item 破坏``占有并等待"条件：每个进程在开始执行时就申请所需要的全部资源，只要有一个请求的资源不可用，其它可用资源就都不分配给它。采用该方法对系统来说是非常浪费的。
 
 	\item 破坏``不可剥夺"条件：一个已拥有资源的进程，若它再提出新资源要求而不能立即得到满足时，它必须释放已经拥有的所有资源，以后需要时再重新申请。该方法实现复杂且要付出很大的代价，会导致之前的工作失效。
@@ -1401,3 +1401,78 @@ do {
 
 银行家算法需要设置以下数据结构：
 
+\begin{enumerate}
+	\item 可利用资源向量Available：一个具有$ m $个元素的数组，其中的每一个元素代表一类可利用资源的数目，其初始值为系统中该类资源的最大可用数目。其值将随着该类资源的分配与回收而动态改变。\lstinline|Available[j] = k|表示系统中现有$ R_j $类资源$ k $个。
+
+	\item 最大需求矩阵Max：一个$ n * m $的矩阵，定义了系统中$ n $个进程中每一个进程对$ m $类资源的最大需求。\lstinline|Max[i, j] = k|表示进程$ i $对$ R_j $类资源的最大需求数目为$ k $个。
+
+	\item 分配矩阵Allocation：一个$ n * m $的矩阵，定义了当前分配给每个进程的各类资源数量。\lstinline|Allocation[i, j] = k|表示进程$ i $当前已分得$ R_j $类资源的数目为$ k $个。
+
+	\item 需求矩阵Need：一个$ n * m $的矩阵，表示每一个进程尚需的各类资源数。\lstinline|Need[i, j] = k|表示进程i还需要$ R_j $类资源$ k $个方能完成任务。
+\end{enumerate}
+
+矩阵间的关系为：
+
+\vspace{-1cm}
+\begin{align}\nonumber
+	Need[i, j] = Max[i, j] - Allocation[i, j]
+\end{align}
+
+设$ Request_i $是进程$ P_i $的请求向量，$ Request_i[j] = k $表示进程$ P_i $需要$ k $个$ R_j $类资源。当进程$ P_i $发出资源请求后，系统按下述步骤进行检查：
+
+\begin{enumerate}
+	\item 如果$ Request_i \le Need_i $，则跳转到步骤2；否则，出错。
+
+	\item 如果$ Request_i \le Available $，则跳转到步骤3；否则，表示尚无足够资源可供分配，进程$ P_i $必须阻塞等待。
+
+	\item 系统试探性地将$ P_i $申请的资源分配给它，并修改下列数据：
+	      \begin{align}\nonumber
+		      Available  & = Available - Request[i]  \\ \nonumber
+		      Allocation & = Allocation + Request[i] \\ \nonumber
+		      Need[i]    & = Need[i] - Request[i]
+	      \end{align}
+
+	\item 系统利用安全性算法，检查此次资源分配以后，系统是否处于安全状态。若安全，才正式讲资源分配给进程$ P_i $。否则，试探分配失效，让进程$ P_i $阻塞等待。
+\end{enumerate}
+
+例如已知系统中进程的资源需求状况：
+
+\begin{table}[H]
+	\centering
+	\setlength{\tabcolsep}{5mm}{
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			                 & \textbf{$ R_1 $} & \textbf{$ R_2 $} & \textbf{$ R_3 $} \\
+			\hline
+			\textbf{$ P_1 $} & 3                & 2                & 2                \\
+			\hline
+			\textbf{$ P_2 $} & 6                & 1                & 3                \\
+			\hline
+			\textbf{$ P_3 $} & 3                & 1                & 4                \\
+			\hline
+			\textbf{$ P_4 $} & 4                & 2                & 2                \\
+			\hline
+		\end{tabular}
+	}
+	\caption{最大需求矩阵Max}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\setlength{\tabcolsep}{5mm}{
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			                 & \textbf{$ R_1 $} & \textbf{$ R_2 $} & \textbf{$ R_3 $} \\
+			\hline
+			\textbf{$ P_1 $} & 1                & 0                & 0                \\
+			\hline
+			\textbf{$ P_2 $} & 6                & 1                & 2                \\
+			\hline
+			\textbf{$ P_3 $} & 2                & 1                & 1                \\
+			\hline
+			\textbf{$ P_4 $} & 0                & 0                & 2                \\
+			\hline
+		\end{tabular}
+	}
+	\caption{分配矩阵Allocation}
+\end{table}
