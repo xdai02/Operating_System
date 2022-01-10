@@ -1440,6 +1440,20 @@ do {
 \begin{table}[H]
 	\centering
 	\setlength{\tabcolsep}{5mm}{
+		\begin{tabular}{|c|c|c|}
+			\hline
+			\textbf{$ R_1 $} & \textbf{$ R_2 $} & \textbf{$ R_3 $} \\
+			\hline
+			9                & 3                & 6                \\
+			\hline
+		\end{tabular}
+	}
+	\caption{资源向量Resource}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\setlength{\tabcolsep}{5mm}{
 		\begin{tabular}{|c|c|c|c|}
 			\hline
 			                 & \textbf{$ R_1 $} & \textbf{$ R_2 $} & \textbf{$ R_3 $} \\
@@ -1476,3 +1490,83 @@ do {
 	}
 	\caption{分配矩阵Allocation}
 \end{table}
+
+根据最大需求矩阵Max与分配矩阵Allocation可计算得到需求矩阵Need：
+
+\begin{table}[H]
+	\centering
+	\setlength{\tabcolsep}{5mm}{
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			                 & \textbf{$ R_1 $} & \textbf{$ R_2 $} & \textbf{$ R_3 $} \\
+			\hline
+			\textbf{$ P_1 $} & 2                & 2                & 2                \\
+			\hline
+			\textbf{$ P_2 $} & 0                & 0                & 1                \\
+			\hline
+			\textbf{$ P_3 $} & 1                & 0                & 3                \\
+			\hline
+			\textbf{$ P_4 $} & 4                & 2                & 0                \\
+			\hline
+		\end{tabular}
+	}
+	\caption{需求矩阵Need}
+\end{table}
+
+根据资源向量Resource与分配矩阵Allocation可计算得到可用资源向量Available：
+
+\begin{table}[H]
+	\centering
+	\setlength{\tabcolsep}{5mm}{
+		\begin{tabular}{|c|c|c|}
+			\hline
+			\textbf{$ R_1 $} & \textbf{$ R_2 $} & \textbf{$ R_3 $} \\
+			\hline
+			0                & 1                & 1                \\
+			\hline
+		\end{tabular}
+	}
+	\caption{可用资源向量Available}
+\end{table}
+
+当前的可用资源为$ (0, 1, 1) $，如果将这些资源分配给$ P_1 $、$ P_3 $、$ P_4 $，并不能满足满足它们的需求。因为$ P_2 $只需要一份$ R_3 $资源就可以执行，执行结束后$ P_2 $会释放所有资源，那么可用资源变为$ (6, 2, 3) $。此时可用资源可以满足剩余任意一个进程，而都不会进入不安全状态。因此，$ <P_2, P_1, P_3, P_4> $就是其中的一个安全序列。 \\
+
+如果无法找到一个安全序列，那么系统就处于不安全状态，便有可能进入死锁状态。
+
+\newpage
+
+\section{死锁的检测与解除}
+
+\subsection{死锁检测与解除}
+
+检测死锁不同于预防死锁，不限制资源访问方式和资源申请。OS可以周期性地执行死锁检测例程，检测系统中是否出现环路等待。 \\
+
+当发现有进程死锁后，便应立即把它从死锁状态中解脱出来，常采用的方法有：
+
+\begin{enumerate}
+	\item 撤销进程法（abort）：强制撤销部分、甚至全部死锁进程并剥夺这些进程的资源。撤销的原则可以按进程优先级和撤销进程代价的高低进行。
+	
+	\item 进程回退法（rollback）：让一个或多个进程回退到足以回避死锁的地步，进程回退时自愿释放资源而不是被剥夺。要求系统保持进程的历史信息，设置还原点。
+\end{enumerate}
+
+\subsection{哲学家就餐问题（Dining Philosophers Problem）}
+
+之前对于哲学家就餐问题的解决算法可能产生死锁。为了使全部哲学家都能进餐，算法必须避免死锁和饥饿。可行的解决方案是最多只允许4个哲学家同时进餐厅，则至少有1个哲学家可以拿到两根筷子进餐。进餐完毕后放下筷子，其他哲学家就可进餐，这样就不会出现死锁和饥饿。
+
+\begin{lstlisting}[language=C, title=哲学家就餐问题]
+Semaphore capacity = 4;
+
+Process phiosopher(i) {
+	do {
+	wait(capacity);						// 第5位哲学家将被阻塞
+		wait(chopstick[i]);				// 申请左筷子
+		wait(chopstick[(i +1) % 5]);	// 申请右筷子
+		// eat
+		signal(chopstick[(i + 1) % 5]);	// 释放右筷子
+		signal(chopstick[i]);			// 释放左筷子
+		signal(capacity);				// 唤醒被阻塞的哲学家
+	} while(true);
+}
+\end{lstlisting}
+
+\newpage
