@@ -1,0 +1,168 @@
+\chapter{设备管理}
+
+\section{I/O重定向}
+
+\subsection{标准I/O}
+
+程序对读入的数据进行处理，再输出数据。数据的输入（input）和输出（output）简称为I/O，在没有指定输入输出的情况下，默认为标准输入和标准输出。 \\
+
+打开的文件都有一个文件描述符（fd, file descriptor），表现为一个数字：
+
+\begin{itemize}
+    \item 标准输入stdin（键盘）：fd = 0
+    \item 标准输出stdout（显示器）：fd = 1
+    \item 标准错误输出stderr（显示器）：fd = 2
+\end{itemize}
+
+\begin{lstlisting}[language=C, title=标准I/O]
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+    int num;
+    printf("(stdin) enter an integer: ");
+    fscanf(stdin, "%d", &num);
+    fprintf(stdout, "(stdout) num = %d\n", num);
+    fprintf(stderr, "(stderr) This is an error message.\n");
+    return 0;
+}
+\end{lstlisting}
+
+\begin{tcolorbox}
+    \mybox{运行结果} \\
+    (stdin) enter an integer: 123 \\
+    (stdout) num = 123 \\
+    (stderr) This is an error message.
+\end{tcolorbox}
+
+\begin{lstlisting}[language=C, title=文件I/O]
+#include <stdio.h>
+#include <stdlib.h>
+
+void writeFile(const char *filename) {
+    FILE *fp = fopen(filename, "w");
+    if(!fp) {
+        fprintf(stderr, "File open failed.\n");
+        exit(1);
+    }
+    char *name = "小灰";
+    int age = 17;
+    double height = 182.3;
+    fprintf(fp, "姓名：%s\n年龄：%d\n身高：%.2f\n", 
+                name, age, height);
+    fclose(fp);
+}
+
+void readFile(const char *filename) {
+    FILE *fp = fopen(filename, "r");
+    if(!fp) {
+        fprintf(stderr, "File open failed.\n");
+        exit(1);
+    }
+    char name[32];
+    int age;
+    double height;
+    fscanf(fp, "姓名：%s\n年龄：%d\n身高：%lf\n", 
+                name, &age, &height);
+    printf("name: %s\n", name);
+    printf("age: %d\n", age);
+    printf("height: %.2f\n", height);
+    fclose(fp);
+}
+
+int main(int argc, char *argv[]) {
+    const char *filename = "info.txt";
+    writeFile(filename);
+    readFile(filename);
+    return 0;
+}
+\end{lstlisting}
+
+\begin{tcolorbox}
+    \mybox{运行结果} \\
+    name: 小灰 \\
+    age: 17 \\
+    height: 182.30
+\end{tcolorbox}
+
+\subsection{I/O重定向（I/O Redirection）}
+
+I/O重定向就是改变标准输入与输出的默认位置。标准输入默认是键盘，通过改成其它输入，就是输入重定向，例如从文本文件里输入。标准输出默认是显示器，通过改成其它输出，就是输出重定向，例如输出到文件。 \\
+
+输出重定向用\lstinline|>|表示，若文件不存在，则创建；若文件已存在，则覆盖。使用\lstinline|>>|时若文件不存在，则创建，若文件已存在，则追加。错误输出重定向用\lstinline|2>|和\lstinline|2>>|表示。 \\
+
+输入重定向用\lstinline|<|表示，但是在输入重定向中\lstinline|<<|可不是表示输入追加。
+
+\begin{lstlisting}[language=C, title=I/O重定向]
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+    int data;
+    scanf("%d", &data);
+    printf("data = %d\n", data);
+    return 0;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[title=input.txt]
+12345
+\end{lstlisting}
+
+\begin{lstlisting}[title=编译]
+gcc -Wall io_redirection.c -o io_redirection
+\end{lstlisting}
+
+\begin{lstlisting}[title=运行]
+./io_redirection < input.txt > output.txt
+\end{lstlisting}
+
+\begin{tcolorbox}
+    \mybox{运行结果} \\
+    \textbf{output.txt} \\
+    num = 12345
+\end{tcolorbox}
+
+\newpage
+
+\section{I/O控制方式}
+
+\subsection{I/O设备}
+
+现代计算机系统总是配有各种类型的外部设备，除了显示器、键盘、打印机、磁带、磁盘外，又出现了光盘、绘图仪、图形数字化仪、鼠标器、激光打印机、声音输入输出设备等，种类繁多。不同外设之间的差异较大，因此I/O性能经常成为系统的瓶颈。 \\
+
+操作系统设备管理的目标包括：
+
+\begin{enumerate}
+    \item 向用户提供使用外部设备的方便、统一的接口，按照用户的要求和设备的类型，控制设备工作，完成用户的输入输出请求。方便是指用户能独立于具体设备的复杂物理特性而方便地使用设备；统一是指对不同设备尽量能统一操作方式。方便和统一要求对用户屏蔽实现具体设备I/O操作的细节，呈现给用户的是一种性能理想化的、操作简便的逻辑设备。系统的这种性能亦称为设备的独立性（设备无关性）。
+    
+    \item 充分利用中断技术、通道技术和缓冲技术，提高CPU与设备、设备与设备间的并行工作能力，充分利用设备资源，提高外部设备的使用效率。
+    
+    \item 设备管理就是要保证在多道程序环境下，当多个进程竞争使用设备时，按照一定的策略分配和管理设备，以使系统能有条不紊地工作。
+\end{enumerate}
+
+\subsection{I/O控制方式}
+
+早期，计算机设计者没有将CPU的执行与I/O操作分开，甚至大多数人认为输入输出与计算的时间应该是同一数量级。后来，他们意识到，CPU要比I/O操作速度高几个数量级。于是，硬件和软件设计师开始寻找一种技术，使CPU计算可以不用等待I/O操作而持续执行。 \\
+
+I/O控制方式包括：
+
+\begin{enumerate}
+    \item 程序控制I/O（Programmed I/O）：处理器代表一个进程给I/O模块发送一个I/O命令，该进程进入忙等待（busy waiting），直到操作完成。
+    
+    \item 中断驱动I/O（Interrupt I/O）：处理器代表进程向I/O发送命令，如果来自进程的I/O指令是非阻塞的，那么处理器继续执行进程的后续指令。如果I/O指令时阻塞的，那么处理器执行来自操作系统的指令，将当前进程设置为阻塞态并且调度其它进程。
+    
+    \item 直接存储器访问（DMA）：DMA模块控制内存和I/O模块之间的数据交换。为传送一块数据，处理器给DMA模块发送请求，只有当整个数据块传送结束后，它才能被中断。
+\end{enumerate}
+
+\newpage
+
+\section{I/O缓冲}
+
+\subsection{I/O缓冲（I/O Buffering）}
+
+在设备管理中，为了缓和CPU与I/O设备速度不匹配的矛盾，提高CPU与I/O设备的并行性、减少对CPU的中断频率，在I/O设备与处理机交换数据时都用到了缓冲区。 \\
+
+缓冲的种类包括：
+
+\begin{enumerate}
+    \item 单缓冲：输入时通道先将数据送入缓冲区，CPU从缓冲区取数据处理。通道再送入后续数据，如此反复直到输入完成。输出情形正好相反。由于缓冲区属于互斥区，所以单缓冲并不能明显改善CPU与外部设备的并行性。
+\end{enumerate}
