@@ -97,9 +97,10 @@ CPU作为计算机系统的运算和控制核心，是信息处理、程序运�
 	\caption{CPU结构}
 \end{figure}
 
-Python中可以通过\lstinline|multiprocessing|模块获取计算机CPU的内核数量。
+Python中可以通过\lstinline|multiprocessing|模块获取计算机CPU的内核数量。 \\
 
-\begin{lstlisting}[language=Python, title=获取CPU可用数量]
+\mybox{获取CPU可用数量}
+\begin{lstlisting}[language=Python]
 import multiprocessing	# 导入多进程模块
 # 获取CPU的可用数量
 print("CPU内核数量：%d" % multiprocessing.cpu_count())
@@ -119,25 +120,26 @@ CPU的核心部分有：
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.55]{img/C1/1-3/2.png}
+	\includegraphics[scale=0.5]{img/C1/1-3/2.png}
 	\caption{控制单元CU}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.55]{img/C1/1-3/3.png}
+	\includegraphics[scale=0.5]{img/C1/1-3/3.png}
 	\caption{算术逻辑单元ALU}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.55]{img/C1/1-3/4.png}
+	\includegraphics[scale=0.5]{img/C1/1-3/4.png}
 	\caption{寄存器register}
 \end{figure}
 
-Python中\lstinline|psutil|模块也提供了系统硬件的内容获取。
+Python中\lstinline|psutil|模块也提供了系统硬件的内容获取。 \\
 
-\begin{lstlisting}[language=Python, title=获取系统硬件信息]
+\mybox{获取系统硬件信息}
+\begin{lstlisting}[language=Python]
 import psutil
 
 def main():

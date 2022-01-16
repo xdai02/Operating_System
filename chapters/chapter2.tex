@@ -124,9 +124,10 @@ Windows任务管理器提供了有关计算机性能的信息，并显示了计�
 
 \subsection{多进程}
 
-Python中在进行多进程开发的时候可以使用\lstinline|multiprocessing|模块进行多进程的编写，这个模块内容提供有一个\lstinline|Process|类，利用这个类可以进行多进程的定义。所有的Python程序执行都是通过主进程开始的，所有通过\lstinline|Process|定义的进程都属于子进程。
+Python中在进行多进程开发的时候可以使用\lstinline|multiprocessing|模块进行多进程的编写，这个模块内容提供有一个\lstinline|Process|类，利用这个类可以进行多进程的定义。所有的Python程序执行都是通过主进程开始的，所有通过\lstinline|Process|定义的进程都属于子进程。 \\
 
-\begin{lstlisting}[language=Python, title=创建多进程]
+\mybox{创建多进程}
+\begin{lstlisting}[language=Python]
 import multiprocessing
 
 def worker():
@@ -163,9 +164,10 @@ if __name__ == "__main__":
 	【进程】id：16636，名称：进程2
 \end{tcolorbox}
 
-\lstinline|psutil|是一个进程管理的第三方模块，该模块可以跨平台（Linux、UNIX、MaxOS、Windows都支持）地进行进程管理，可以极大地简化不同系统中的进程处理操作。
+\lstinline|psutil|是一个进程管理的第三方模块，该模块可以跨平台（Linux、UNIX、MaxOS、Windows都支持）地进行进程管理，可以极大地简化不同系统中的进程处理操作。 \\
 
-\begin{lstlisting}[language=Python, title=获取全部进程信息]
+\mybox{获取全部进程信息}
+\begin{lstlisting}[language=Python]
 import psutil
 
 def main():
@@ -190,9 +192,10 @@ if __name__ == "__main__":
 
 PCB中包含了关于进程的一些信息，如进程标识（pid）、程序计数器、状态信息、CPU调度信息、内存管理信息、I/O状态信息等。 \\
 
-Linux中C语言\lstinline|<linux/sched.h>|头文件中定义的进程结构如下：
+Linux中C语言\lstinline|<linux/sched.h>|头文件中定义的进程结构如下： \\
 
-\begin{lstlisting}[language=C, title=进程结构]
+\mybox{进程结构}
+\begin{lstlisting}[language=C]
 pid t_pid;					/* process identifier */
 long state;					/* state of the process */
 unsigned int time_slice;	/* scheduling information */
@@ -239,9 +242,10 @@ struct mm_struct *mm;		/* address space */
 
 \subsection{子进程（Child Process）}
 
-\lstinline|fork()|函数是UNIX或类UNIX中的分叉函数，\lstinline|fork()|函数将运行着的程序分成两个几乎完全一样的进程，每个进程都启动一个从代码的同一位置开始执行的线程。这两个进程中的线程继续执行，就像是两个用户同时启动了该应用程序的两个副本。
+\lstinline|fork()|函数是UNIX或类UNIX中的分叉函数，\lstinline|fork()|函数将运行着的程序分成两个几乎完全一样的进程，每个进程都启动一个从代码的同一位置开始执行的线程。这两个进程中的线程继续执行，就像是两个用户同时启动了该应用程序的两个副本。 \\
 
-\begin{lstlisting}[language=C, title=创建子进程]
+\mybox{创建子进程}
+\begin{lstlisting}[language=C]
 #include <stdio.h>
 #include <sys/types.h>
 #include <wait.h>
@@ -671,7 +675,8 @@ RR算法的性能很大程度取决于时间片的大小。在一种极端情况
 	\caption{进程间通信}
 \end{figure}
 
-\begin{lstlisting}[language=Python, title=创建进程通讯管道]
+\mybox{创建进程通讯管道}
+\begin{lstlisting}[language=Python]
 import multiprocessing
 
 def send_data(pipe, data):
@@ -733,9 +738,10 @@ if __name__ == "__main__":
 	\caption{生产者/消费者问题}
 \end{figure}
 
-\lstinline|multiprocessing.Queue|是Python多进程编程中提供的进程队列结构，该队列采用FIFO的形式实现不同进程间的数据通讯，这样可以保证多个数据可以按序实现发送与接收处理。
+\lstinline|multiprocessing.Queue|是Python多进程编程中提供的进程队列结构，该队列采用FIFO的形式实现不同进程间的数据通讯，这样可以保证多个数据可以按序实现发送与接收处理。 \\
 
-\begin{lstlisting}[language=Python, title=进程队列]
+\mybox{进程队列}
+\begin{lstlisting}[language=Python]
 import multiprocessing
 import time
 
@@ -812,9 +818,10 @@ if __name__ == "__main__":
 
 在整个操作系统之中每一个进程都有自己独立的数据存储单元，也就是说不同进程之间无法直接实现数据共享。通过管道流可以实现进程之间的数据共享，相当于打通了不同进程之间的限制。但是不同的进程操作同一个资源就必须考虑数据同步的问题。 \\
 
-要理解同步概念，首先要清楚进程不同步所带来的的问题。
+要理解同步概念，首先要清楚进程不同步所带来的问题。 \\
 
-\begin{lstlisting}[language=Python, title=售票操作（Bug版本）]
+\mybox{售票操作（Bug版本）}
+\begin{lstlisting}[language=Python]
 import multiprocessing
 import time
 
@@ -900,9 +907,10 @@ if __name__ == "__main__":
 
 临界资源是各进程采取互斥的方式，一次仅允许一个进程使用的共享资源。属于临界资源的有打印机、变量、缓冲区等。 \\
 
-每个进程中访问临界资源的那段代码称为临界区，每次只允许一个进程进入临界区，进入后，不允许其它进程进入。不论是硬件临界资源还是软件临界资源，多个进程必须互斥的对它进行访问。使用临界区时，一般不允许其运行时间过长，只要运行在临界区的线程还没有离开，其它所有进入此临界区的线程都会被挂起而进入等待状态，因此会在一定程度上影响程序的运行性能。
+每个进程中访问临界资源的那段代码称为临界区，每次只允许一个进程进入临界区，进入后，不允许其它进程进入。不论是硬件临界资源还是软件临界资源，多个进程必须互斥的对它进行访问。使用临界区时，一般不允许其运行时间过长，只要运行在临界区的线程还没有离开，其它所有进入此临界区的线程都会被挂起而进入等待状态，因此会在一定程度上影响程序的运行性能。 \\
 
-\begin{lstlisting}[language=C, title=临界区]
+\mybox{临界区}
+\begin{lstlisting}[language=C]
 do {
 	// entry section
 	critical section
@@ -915,9 +923,10 @@ do {
 
 Peterson算法是由Gary L. Peterson于1981年提出的一个实现互斥锁的并发算法，可以控制两个进程访问一个共享的单用户资源而不发生访问冲突。 \\
 
-Peterson算法要求两个进程共享两个数据项：
+Peterson算法要求两个进程共享两个数据项： \\
 
-\begin{lstlisting}[language=C, title=Peterson算法]
+\mybox{Peterson算法}
+\begin{lstlisting}[language=C]
 int turn;		// 表示哪个进程可以进入临界区
 bool flag[2];	// 表示哪个进程准备进入临界区
 \end{lstlisting}
@@ -926,9 +935,10 @@ bool flag[2];	// 表示哪个进程准备进入临界区
 
 互斥锁是用一种简单的加锁方法来控制对共享资源的访问，互斥锁只有两种状态，即上锁（lock / acquire）和解锁（unlock / release）。 \\
 
-互斥锁必须设定为一个原子操作（atomic operation），这意味着操作系统保证了如果一个进程锁定了一个互斥量，没有其它进程在同一时间可以成功锁定这个互斥量。
+互斥锁必须设定为一个原子操作（atomic operation），这意味着操作系统保证了如果一个进程锁定了一个互斥量，没有其它进程在同一时间可以成功锁定这个互斥量。 \\
 
-\begin{lstlisting}[language=C, title=互斥锁]
+\mybox{互斥锁}
+\begin{lstlisting}[language=C]
 acquire() {
 	while(!available) {
 		;			//busy wait
@@ -956,7 +966,8 @@ do {
 	\caption{互斥锁}
 \end{figure}
 
-\begin{lstlisting}[language=Python, title=售票操作（正确版本）]
+\mybox{售票操作（正确版本）}
+\begin{lstlisting}[language=Python]
 import multiprocessing
 import time
 
@@ -1084,9 +1095,10 @@ Semaphore类本质上是一种带有计数功能的进程同步机制，\lstinli
 	\caption{互斥锁}
 \end{figure}
 
-Lock一般是针对于一个资源同步的，而Semaphore是针对有限资源的并行访问。
+Lock一般是针对于一个资源同步的，而Semaphore是针对有限资源的并行访问。 \\
 
-\begin{lstlisting}[language=Python, title=信号量同步处理]
+\mybox{信号量同步处理}
+\begin{lstlisting}[language=Python]
 import multiprocessing
 import time
 
@@ -1551,9 +1563,10 @@ do {
 
 \subsection{哲学家就餐问题（Dining Philosophers Problem）}
 
-之前对于哲学家就餐问题的解决算法可能产生死锁。为了使全部哲学家都能进餐，算法必须避免死锁和饥饿。可行的解决方案是最多只允许4个哲学家同时进餐厅，则至少有1个哲学家可以拿到两根筷子进餐。进餐完毕后放下筷子，其他哲学家就可进餐，这样就不会出现死锁和饥饿。
+之前对于哲学家就餐问题的解决算法可能产生死锁。为了使全部哲学家都能进餐，算法必须避免死锁和饥饿。可行的解决方案是最多只允许4个哲学家同时进餐厅，则至少有1个哲学家可以拿到两根筷子进餐。进餐完毕后放下筷子，其他哲学家就可进餐，这样就不会出现死锁和饥饿。 \\
 
-\begin{lstlisting}[language=C, title=哲学家就餐问题]
+\mybox{哲学家就餐问题}
+\begin{lstlisting}[language=C]
 Semaphore capacity = 4;
 
 Process phiosopher(i) {

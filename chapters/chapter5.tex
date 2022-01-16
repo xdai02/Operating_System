@@ -41,9 +41,10 @@ def open(
 	\caption{文件打开模式}
 \end{table}
 
-如果以只读的模式打开文件，并且文件路径不存在的话，就会出现FileNotFoundError`错误信息。
+如果以只读的模式打开文件，并且文件路径不存在的话，就会出现FileNotFoundError错误信息。 \\
 
-\begin{lstlisting}[language=Python, title=文件操作]
+\mybox{文件操作}
+\begin{lstlisting}[language=Python]
 def main():
     file = open(file="data.txt", mode="w")
     print("文件名称：%s" % file.name)
@@ -106,7 +107,8 @@ if __name__ == "__main__":
 
 既然所有的文件对象最终都需要被开发者关闭，那么可以结合with语句实现自动的关闭处理。通过with实现所有资源对象的连接和释放是在Python中编写资源操作的重要技术手段，通过这样的操作可以极大地减少和优化代码结构。 \\
 
-\begin{lstlisting}[language=Python, title=读取文件]
+\mybox{读取文件}
+\begin{lstlisting}[language=Python]
 def main():
     with open(file="data.txt", mode="r", encoding="utf-8") as file:
         for line in file:
@@ -129,7 +131,8 @@ if __name__ == "__main__":
     小黄	21
 \end{tcolorbox}
 
-\begin{lstlisting}[language=Python, title=写入文件]
+\mybox{写入文件}
+\begin{lstlisting}[language=Python]
 def main():
     with open(file="data.txt", mode="w", encoding="utf-8") as file:
         info = {"小灰": 16, "小白": 17, "小黄": 21}
@@ -168,9 +171,10 @@ if __name__ == "__main__":
 
 如果想要观察到行缓冲的使用特点，就不能直接使用with语句，因为with最后会执行\lstinline|close()|的关闭操作，而一旦关闭，则缓冲的内容会全部进行输出。 \\
 
-使用\lstinline|flush()|进行缓冲区的强制清空，一旦强制清空之后，缓冲区的内容将全部输出。每次使用\lstinline|close()|关闭文件流的时候默认情况下也会调用\lstinline|flush()|进行缓冲区的清空处理。
+使用\lstinline|flush()|进行缓冲区的强制清空，一旦强制清空之后，缓冲区的内容将全部输出。每次使用\lstinline|close()|关闭文件流的时候默认情况下也会调用\lstinline|flush()|进行缓冲区的清空处理。 \\
 
-\begin{lstlisting}[language=Python, title=文件缓冲]
+\mybox{文件缓冲}
+\begin{lstlisting}[language=Python]
 import os
 
 def main():
