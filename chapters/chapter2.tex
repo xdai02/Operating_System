@@ -124,7 +124,7 @@ Windows任务管理器提供了有关计算机性能的信息，并显示了计�
 
 \subsection{多进程}
 
-Python中在进行多进程开发的时候可以使用\lstinline|multiprocessing|模块进行多进程的编写，这个模块内容提供有一个\lstinline|Process|类，利用这个类可以进行多进程的定义。所有的Python程序执行都是通过主进程开始的，所有通过\lstinline|Process|定义的进程都属于子进程。 \\
+Python中在进行多进程开发的时候可以使用multiprocessing模块进行多进程的编写，这个模块内容提供有一个Process类，利用这个类可以进行多进程的定义。所有的Python程序执行都是通过主进程开始的，所有通过Process定义的进程都属于子进程。 \\
 
 \mybox{创建多进程}
 \begin{lstlisting}[language=Python]
@@ -164,7 +164,7 @@ if __name__ == "__main__":
 	【进程】id：16636，名称：进程2
 \end{tcolorbox}
 
-\lstinline|psutil|是一个进程管理的第三方模块，该模块可以跨平台（Linux、UNIX、MaxOS、Windows都支持）地进行进程管理，可以极大地简化不同系统中的进程处理操作。 \\
+psutil是一个进程管理的第三方模块，该模块可以跨平台（Linux、UNIX、MaxOS、Windows都支持）地进行进程管理，可以极大地简化不同系统中的进程处理操作。 \\
 
 \mybox{获取全部进程信息}
 \begin{lstlisting}[language=Python]
@@ -192,7 +192,7 @@ if __name__ == "__main__":
 
 PCB中包含了关于进程的一些信息，如进程标识（pid）、程序计数器、状态信息、CPU调度信息、内存管理信息、I/O状态信息等。 \\
 
-Linux中C语言\lstinline|<linux/sched.h>|头文件中定义的进程结构如下： \\
+Linux中C语言<linux/sched.h>头文件中定义的进程结构如下： \\
 
 \mybox{进程结构}
 \begin{lstlisting}[language=C]
@@ -242,7 +242,7 @@ struct mm_struct *mm;		/* address space */
 
 \subsection{子进程（Child Process）}
 
-\lstinline|fork()|函数是UNIX或类UNIX中的分叉函数，\lstinline|fork()|函数将运行着的程序分成两个几乎完全一样的进程，每个进程都启动一个从代码的同一位置开始执行的线程。这两个进程中的线程继续执行，就像是两个用户同时启动了该应用程序的两个副本。 \\
+fork()函数是UNIX或类UNIX中的分叉函数，fork()函数将运行着的程序分成两个几乎完全一样的进程，每个进程都启动一个从代码的同一位置开始执行的线程。这两个进程中的线程继续执行，就像是两个用户同时启动了该应用程序的两个副本。 \\
 
 \mybox{创建子进程}
 \begin{lstlisting}[language=C]
@@ -303,12 +303,12 @@ int main() {
 	\caption{子进程}
 \end{figure}
 
-正常情况下，子进程由父进程创建，子进程可以再创建新的进程。父子进程是一个异步过程，父进程永远无法预测子进程的结束，所以，当子进程结束后，它的父进程会调用\lstinline|wait()|或\lstinline|waitpid()|取得子进程的终止状态，回收掉子进程的资源。 \\
+正常情况下，子进程由父进程创建，子进程可以再创建新的进程。父子进程是一个异步过程，父进程永远无法预测子进程的结束，所以，当子进程结束后，它的父进程会调用wait()或waitpid()取得子进程的终止状态，回收掉子进程的资源。 \\
 
 但是一些情况下会产生僵尸进程（zoobie process）和孤儿进程（orphan process）的情况：
 
 \begin{itemize}
-	\item 僵尸进程：子进程退出了，但是父进程没有用\lstinline|wait()|或\lstinline|waitpid()|去获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中，这种进程称为僵尸进程。
+	\item 僵尸进程：子进程退出了，但是父进程没有用wait()或waitpid()去获取子进程的状态信息，那么子进程的进程描述符仍然保存在系统中，这种进程称为僵尸进程。
 
 	\item 孤儿进程：父进程结束了，而它的一个或多个子进程还在运行，那么这些子进程就成为了孤儿进程。子进程的资源由init进程（pid=1）回收。
 \end{itemize}
@@ -738,7 +738,7 @@ if __name__ == "__main__":
 	\caption{生产者/消费者问题}
 \end{figure}
 
-\lstinline|multiprocessing.Queue|是Python多进程编程中提供的进程队列结构，该队列采用FIFO的形式实现不同进程间的数据通讯，这样可以保证多个数据可以按序实现发送与接收处理。 \\
+multiprocessing.Queue是Python多进程编程中提供的进程队列结构，该队列采用FIFO的形式实现不同进程间的数据通讯，这样可以保证多个数据可以按序实现发送与接收处理。 \\
 
 \mybox{进程队列}
 \begin{lstlisting}[language=Python]
@@ -1029,7 +1029,7 @@ if __name__ == "__main__":
 
 \subsection{硬件实现}
 
-\lstinline|test_and_set()|函数是用硬件保持的原子操作，这操作不会被打断。
+test\_and\_set()函数是用硬件保持的原子操作，这操作不会被打断。
 
 \begin{lstlisting}[language=C]
 bool test_and_set (bool *target) {
@@ -1039,7 +1039,7 @@ bool test_and_set (bool *target) {
 }
 \end{lstlisting}
 
-共享锁lock初始化为false。\lstinline|while(test_and_tet(&lock));|这句后面是的分号表示会循环等待解锁。
+共享锁lock初始化为false。while(test\_and\_set(\&lock));这句后面是的分号表示会循环等待解锁。
 
 \begin{lstlisting}[language=C]
 do {
@@ -1052,7 +1052,7 @@ do {
 } while(true);
 \end{lstlisting}
 
-\lstinline|compare_and_swap()|函数也是按原子操作执行，不接受中断。
+compare\_and\_swap()函数也是按原子操作执行，不接受中断。
 
 \begin{lstlisting}[language=C]
 int compare_and_swap(int *value, int expected, int new_value) {
@@ -1087,7 +1087,7 @@ do {
 
 Semaphore（信号量）是一种有限资源的进程同步管理机制。例如银行的业务办理，所有客户都会拿到一个号码，而后号码会被业务窗口叫号，被叫号的办理者就可以办理业务。 \\
 
-Semaphore类本质上是一种带有计数功能的进程同步机制，\lstinline|acquire()|减少计数，\lstinline|release()|增加计数。当可用信号量的计数为0时，后续进程将被阻塞。
+Semaphore类本质上是一种带有计数功能的进程同步机制，acquire()减少计数，release()增加计数。当可用信号量的计数为0时，后续进程将被阻塞。
 
 \begin{figure}[H]
 	\centering
@@ -1152,7 +1152,7 @@ if __name__ == "__main__":
 	【进程972】结束办理业务
 \end{tcolorbox}
 
-一个信号量Semaphore是一个整型量，除对其初始化外，它只能由两个原子操作\lstinline|wait()|和\lstinline|signal()|进行访问。\lstinline|wait()|和\lstinline|signal()|即早前使用的P/V操作，P/V的名称来源于荷兰文proberen（测试）和verhogen（增量）。
+一个信号量Semaphore是一个整型量，除对其初始化外，它只能由两个原子操作wait()和signal()进行访问。wait()和signal()即早前使用的P/V操作，P/V的名称来源于荷兰文proberen（测试）和verhogen（增量）。
 
 \begin{lstlisting}[language=C]
 wait(s) {
@@ -1174,7 +1174,7 @@ signal(s) {
 	\item 记录处于等待状态的进程数量
 \end{enumerate}
 
-为了避免进程忙等，\lstinline|wait()|和\lstinline|signal()|的定义需要进行修改。当一个进程执行\lstinline|wait()|但发现信号量$ s <= 0 $时，它必须等待，这里的等待不是忙等，而是阻塞自己。当一个进程阻塞且等待信号量时，在其它进程执行\lstinline|signal()|之后被重新执行。 \\
+为了避免进程忙等，wait()和signal()的定义需要进行修改。当一个进程执行wait()但发现信号量$ s <= 0 $时，它必须等待，这里的等待不是忙等，而是阻塞自己。当一个进程阻塞且等待信号量时，在其它进程执行signal()之后被重新执行。 \\
 
 信号量的意义为：
 
@@ -1193,7 +1193,7 @@ typedef struct {
 } Semaphore;
 \end{lstlisting}
 
-无需忙等的\lstinline|wait()| / \lstinline|signal()|：
+无需忙等的wait() / signal()：
 
 \begin{lstlisting}[language=C]
 wait(Semaphore *s) {
@@ -1414,13 +1414,13 @@ do {
 银行家算法需要设置以下数据结构：
 
 \begin{enumerate}
-	\item 可利用资源向量Available：一个具有$ m $个元素的数组，其中的每一个元素代表一类可利用资源的数目，其初始值为系统中该类资源的最大可用数目。其值将随着该类资源的分配与回收而动态改变。\lstinline|Available[j] = k|表示系统中现有$ R_j $类资源$ k $个。
+	\item 可利用资源向量Available：一个具有$ m $个元素的数组，其中的每一个元素代表一类可利用资源的数目，其初始值为系统中该类资源的最大可用数目。其值将随着该类资源的分配与回收而动态改变。Available[j] = k表示系统中现有$ R_j $类资源$ k $个。
 
-	\item 最大需求矩阵Max：一个$ n * m $的矩阵，定义了系统中$ n $个进程中每一个进程对$ m $类资源的最大需求。\lstinline|Max[i, j] = k|表示进程$ i $对$ R_j $类资源的最大需求数目为$ k $个。
+	\item 最大需求矩阵Max：一个$ n * m $的矩阵，定义了系统中$ n $个进程中每一个进程对$ m $类资源的最大需求。Max[i, j] = k表示进程$ i $对$ R_j $类资源的最大需求数目为$ k $个。
 
-	\item 分配矩阵Allocation：一个$ n * m $的矩阵，定义了当前分配给每个进程的各类资源数量。\lstinline|Allocation[i, j] = k|表示进程$ i $当前已分得$ R_j $类资源的数目为$ k $个。
+	\item 分配矩阵Allocation：一个$ n * m $的矩阵，定义了当前分配给每个进程的各类资源数量。Allocation[i, j] = k表示进程$ i $当前已分得$ R_j $类资源的数目为$ k $个。
 
-	\item 需求矩阵Need：一个$ n * m $的矩阵，表示每一个进程尚需的各类资源数。\lstinline|Need[i, j] = k|表示进程i还需要$ R_j $类资源$ k $个方能完成任务。
+	\item 需求矩阵Need：一个$ n * m $的矩阵，表示每一个进程尚需的各类资源数。Need[i, j] = k表示进程i还需要$ R_j $类资源$ k $个方能完成任务。
 \end{enumerate}
 
 矩阵间的关系为：

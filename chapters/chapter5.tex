@@ -6,7 +6,7 @@
 
 计算机除了拥有计算的能力之外，一定要有数据的存储能力，而对于数据的存储一般就可以通过文件的形式来完成。在Python中直接提供有文件的I/O（Input/Output）处理函数操作，利用这些函数可以方便地实现读取和写入。 \\
 
-\lstinline|open()|函数的功能是进行文件的打开，在进行文件打开的时候如果不设置任何的模式类型，则默认为r（只读模式）。
+open()函数的功能是进行文件的打开，在进行文件打开的时候如果不设置任何的模式类型，则默认为r（只读模式）。
 
 \begin{lstlisting}[language=Python]
 def open(
@@ -69,7 +69,7 @@ if __name__ == "__main__":
 
 \subsection{文件读写}
 
-当使用\lstinline|open()|打开一个文件之后，接下来可以使用创建的文件对象进行读写操作。 \\
+当使用open()打开一个文件之后，接下来可以使用创建的文件对象进行读写操作。 \\
 
 使用读模式打开文件后，可以使用循环读取每一行的数据内容。Python在进行文件读取操作的时候也可以进一步简化操作。文件对象本身是可以迭代的，在迭代的时候是以换行符进行分割，每次迭代就读取到一行数据内容。
 
@@ -127,10 +127,11 @@ if __name__ == "__main__":
 \begin{tcolorbox}
 	\mybox{运行结果} \\
 	小灰	16 \\
-    小白	17 \\
-    小黄	21
+	小白	17 \\
+	小黄	21
 \end{tcolorbox}
 
+\vspace{0.5cm}
 \mybox{写入文件}
 \begin{lstlisting}[language=Python]
 def main():
@@ -144,11 +145,11 @@ if __name__ == "__main__":
 \end{lstlisting}
 
 \begin{tcolorbox}
-    \mybox{运行结果} \\
-    \textbf{data.txt} \\
-    小灰	16 \\
-    小白	17 \\
-    小黄	21
+	\mybox{运行结果} \\
+	\textbf{data.txt} \\
+	小灰	16 \\
+	小白	17 \\
+	小黄	21
 \end{tcolorbox}
 
 \newpage
@@ -157,21 +158,21 @@ if __name__ == "__main__":
 
 \subsection{文件缓冲}
 
-在使用\lstinline|open()|创建一个文件对象的时候，默认情况下是不会启用缓冲的。在\lstinline|open()|中提供的buffering参数描述的就是文件处理缓冲的定义，在进行文件写入的时候利用缓冲可以避免频繁的I/O资源占用。 \\
+在使用open()创建一个文件对象的时候，默认情况下是不会启用缓冲的。在open()中提供的buffering参数描述的就是文件处理缓冲的定义，在进行文件写入的时候利用缓冲可以避免频繁的I/O资源占用。 \\
 
 开启缓冲可以提高写入效率，buffering参数设置有3种类型：
 
 \begin{enumerate}
-    \item 全缓冲（buffering > 1）：当标准I/O缓存被填满后才会进行真正I/O操作，全缓冲的典型代表就是对磁盘文件的读写操作。
-    
-    \item 行缓冲（buffering = 1）：在I/O操作中遇见换行符时才执行真正的I/O操作，例如在使用网络聊天工具时所编辑的文字在没有发送前是不会进行I/O操作的。
-    
-    \item 不缓冲（buffering = 0）：直接进行终端设备的I/O操作，数据不经过缓冲保存。
+	\item 全缓冲（buffering > 1）：当标准I/O缓存被填满后才会进行真正I/O操作，全缓冲的典型代表就是对磁盘文件的读写操作。
+
+	\item 行缓冲（buffering = 1）：在I/O操作中遇见换行符时才执行真正的I/O操作，例如在使用网络聊天工具时所编辑的文字在没有发送前是不会进行I/O操作的。
+
+	\item 不缓冲（buffering = 0）：直接进行终端设备的I/O操作，数据不经过缓冲保存。
 \end{enumerate}
 
-如果想要观察到行缓冲的使用特点，就不能直接使用with语句，因为with最后会执行\lstinline|close()|的关闭操作，而一旦关闭，则缓冲的内容会全部进行输出。 \\
+如果想要观察到行缓冲的使用特点，就不能直接使用with语句，因为with最后会执行close()的关闭操作，而一旦关闭，则缓冲的内容会全部进行输出。 \\
 
-使用\lstinline|flush()|进行缓冲区的强制清空，一旦强制清空之后，缓冲区的内容将全部输出。每次使用\lstinline|close()|关闭文件流的时候默认情况下也会调用\lstinline|flush()|进行缓冲区的清空处理。 \\
+使用flush()进行缓冲区的强制清空，一旦强制清空之后，缓冲区的内容将全部输出。每次使用close()关闭文件流的时候默认情况下也会调用flush()进行缓冲区的清空处理。 \\
 
 \mybox{文件缓冲}
 \begin{lstlisting}[language=Python]
@@ -189,11 +190,11 @@ def main():
 if __name__ == "__main__":
     main()
 \end{lstlisting}
-    
+
 \begin{tcolorbox}
-    \mybox{运行结果} \\
-    \textbf{data.txt} \\
-    This is a test.
+	\mybox{运行结果} \\
+	\textbf{data.txt} \\
+	This is a test.
 \end{tcolorbox}
 
 \newpage

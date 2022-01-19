@@ -35,6 +35,7 @@ int main(int argc, char *argv[]) {
 	(stderr) This is an error message.
 \end{tcolorbox}
 
+\vspace{0.5cm}
 \mybox{文件I/O}
 \begin{lstlisting}[language=C]
 #include <stdio.h>
@@ -90,9 +91,9 @@ int main(int argc, char *argv[]) {
 
 I/O重定向就是改变标准输入与输出的默认位置。标准输入默认是键盘，通过改成其它输入，就是输入重定向，例如从文本文件里输入。标准输出默认是显示器，通过改成其它输出，就是输出重定向，例如输出到文件。 \\
 
-输出重定向用\lstinline|>|表示，若文件不存在，则创建；若文件已存在，则覆盖。使用\lstinline|>>|时若文件不存在，则创建，若文件已存在，则追加。错误输出重定向用\lstinline|2>|和\lstinline|2>>|表示。 \\
+输出重定向用【>】表示，若文件不存在，则创建；若文件已存在，则覆盖。使用【>>】时若文件不存在，则创建，若文件已存在，则追加。错误输出重定向用【2>】和【2>>】表示。 \\
 
-输入重定向用\lstinline|<|表示，但是在输入重定向中\lstinline|<<|可不是表示输入追加。 \\
+输入重定向用【<】表示，但是在输入重定向中【<<】可不是表示输入追加。 \\
 
 \mybox{I/O重定向}
 \begin{lstlisting}[language=C]
