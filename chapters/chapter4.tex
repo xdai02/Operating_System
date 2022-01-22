@@ -11,10 +11,11 @@
 \begin{itemize}
 	\item 标准输入stdin（键盘）：fd = 0
 	\item 标准输出stdout（显示器）：fd = 1
-	\item 标准错误输出stderr（显示器）：fd = 2 \\
+	\item 标准错误输出stderr（显示器）：fd = 2
 \end{itemize}
 
 \mybox{标准I/O}
+
 \begin{lstlisting}[language=C]
 #include <stdio.h>
 
@@ -29,14 +30,18 @@ int main(int argc, char *argv[]) {
 \end{lstlisting}
 
 \begin{tcolorbox}
-	\mybox{运行结果} \\
-	(stdin) enter an integer: 123 \\
-	(stdout) num = 123 \\
-	(stderr) This is an error message.
+	\mybox{运行结果}
+	\begin{verbatim}
+(stdin) enter an integer: 123
+(stdout) num = 123
+(stderr) This is an error message.
+	\end{verbatim}
 \end{tcolorbox}
 
 \vspace{0.5cm}
+
 \mybox{文件I/O}
+
 \begin{lstlisting}[language=C]
 #include <stdio.h>
 #include <stdlib.h>
@@ -81,10 +86,12 @@ int main(int argc, char *argv[]) {
 \end{lstlisting}
 
 \begin{tcolorbox}
-	\mybox{运行结果} \\
-	name: 小灰 \\
-	age: 17 \\
-	height: 182.30
+	\mybox{运行结果}
+	\begin{verbatim}
+name: 小灰
+age: 17
+height: 182.30
+	\end{verbatim}
 \end{tcolorbox}
 
 \subsection{I/O重定向（I/O Redirection）}
@@ -96,6 +103,7 @@ I/O重定向就是改变标准输入与输出的默认位置。标准输入默�
 输入重定向用【<】表示，但是在输入重定向中【<<】可不是表示输入追加。 \\
 
 \mybox{I/O重定向}
+
 \begin{lstlisting}[language=C]
 #include <stdio.h>
 
@@ -120,9 +128,11 @@ gcc -Wall io_redirection.c -o io_redirection
 \end{lstlisting}
 
 \begin{tcolorbox}
-	\mybox{运行结果} \\
-	\textbf{output.txt} \\
-	num = 12345
+	\mybox{运行结果}
+	\textbf{output.txt}
+	\begin{verbatim}
+num = 12345
+	\end{verbatim}
 \end{tcolorbox}
 
 \newpage

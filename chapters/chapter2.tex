@@ -127,6 +127,7 @@ Windows任务管理器提供了有关计算机性能的信息，并显示了计�
 Python中在进行多进程开发的时候可以使用multiprocessing模块进行多进程的编写，这个模块内容提供有一个Process类，利用这个类可以进行多进程的定义。所有的Python程序执行都是通过主进程开始的，所有通过Process定义的进程都属于子进程。 \\
 
 \mybox{创建多进程}
+
 \begin{lstlisting}[language=Python]
 import multiprocessing
 
@@ -157,16 +158,19 @@ if __name__ == "__main__":
 \end{lstlisting}
 
 \begin{tcolorbox}
-	\mybox{运行结果} \\
-	【主进程】id：4476，名称：MainProcess \\
-	【进程】id：14216，名称：进程0 \\
-	【进程】id：1424，名称：进程1 \\
-	【进程】id：16636，名称：进程2
+	\mybox{运行结果}
+	\begin{verbatim}
+【主进程】id：4476，名称：MainProcess
+【进程】id：14216，名称：进程0
+【进程】id：1424，名称：进程1
+【进程】id：16636，名称：进程2
+	\end{verbatim}
 \end{tcolorbox}
 
 psutil是一个进程管理的第三方模块，该模块可以跨平台（Linux、UNIX、MaxOS、Windows都支持）地进行进程管理，可以极大地简化不同系统中的进程处理操作。 \\
 
 \mybox{获取全部进程信息}
+
 \begin{lstlisting}[language=Python]
 import psutil
 
@@ -195,6 +199,7 @@ PCB中包含了关于进程的一些信息，如进程标识（pid）、程序�
 Linux中C语言<linux/sched.h>头文件中定义的进程结构如下： \\
 
 \mybox{进程结构}
+
 \begin{lstlisting}[language=C]
 pid t_pid;					/* process identifier */
 long state;					/* state of the process */
@@ -245,6 +250,7 @@ struct mm_struct *mm;		/* address space */
 fork()函数是UNIX或类UNIX中的分叉函数，fork()函数将运行着的程序分成两个几乎完全一样的进程，每个进程都启动一个从代码的同一位置开始执行的线程。这两个进程中的线程继续执行，就像是两个用户同时启动了该应用程序的两个副本。 \\
 
 \mybox{创建子进程}
+
 \begin{lstlisting}[language=C]
 #include <stdio.h>
 #include <sys/types.h>
@@ -277,12 +283,14 @@ int main() {
 \end{lstlisting}
 
 \begin{tcolorbox}
-	\mybox{运行结果} \\
-	Before fork(): my pid is 2250 \\
-	Parent Process: my pid is 2250 \\
-	Child Process: my pid is 2251 \\
-	main main.c \\
-	Child Complete
+	\mybox{运行结果}
+	\begin{verbatim}
+Before fork(): my pid is 2250
+Parent Process: my pid is 2250
+Child Process: my pid is 2251
+main main.c
+Child Complete
+	\end{verbatim}
 \end{tcolorbox}
 
 \begin{figure}[H]
@@ -676,6 +684,7 @@ RR算法的性能很大程度取决于时间片的大小。在一种极端情况
 \end{figure}
 
 \mybox{创建进程通讯管道}
+
 \begin{lstlisting}[language=Python]
 import multiprocessing
 
@@ -723,9 +732,11 @@ if __name__ == "__main__":
 \end{lstlisting}
 
 \begin{tcolorbox}
-	\mybox{运行结果} \\
-	【进程11664】发送数据：Hello! \\
-	【进程1032】接收数据：Hello!
+	\mybox{运行结果}
+	\begin{verbatim}
+【进程11664】发送数据：Hello!
+【进程1032】接收数据：Hello!
+	\end{verbatim}
 \end{tcolorbox}
 
 \subsection{生产者/消费者问题（Producer/Consumer Problem）}
@@ -741,6 +752,7 @@ if __name__ == "__main__":
 multiprocessing.Queue是Python多进程编程中提供的进程队列结构，该队列采用FIFO的形式实现不同进程间的数据通讯，这样可以保证多个数据可以按序实现发送与接收处理。 \\
 
 \mybox{进程队列}
+
 \begin{lstlisting}[language=Python]
 import multiprocessing
 import time
@@ -791,13 +803,15 @@ if __name__ == "__main__":
 \end{lstlisting}
 
 \begin{tcolorbox}
-	\mybox{运行结果} \\
-	【Producer】生产数据：data-0 \\
-	【Consumer】消费数据：data-0 \\
-	【Producer】生产数据：data-1 \\
-	【Consumer】消费数据：data-1 \\
-	【Producer】生产数据：data-2 \\
-	【Consumer】消费数据：data-2
+	\mybox{运行结果}
+	\begin{verbatim}
+【Producer】生产数据：data-0
+【Consumer】消费数据：data-0
+【Producer】生产数据：data-1
+【Consumer】消费数据：data-1
+【Producer】生产数据：data-2
+【Consumer】消费数据：data-2
+	\end{verbatim}
 \end{tcolorbox}
 
 \newpage
@@ -821,6 +835,7 @@ if __name__ == "__main__":
 要理解同步概念，首先要清楚进程不同步所带来的问题。 \\
 
 \mybox{售票操作（Bug版本）}
+
 \begin{lstlisting}[language=Python]
 import multiprocessing
 import time
@@ -865,32 +880,34 @@ if __name__ == "__main__":
 \end{lstlisting}
 
 \begin{tcolorbox}
-	\mybox{运行结果} \\
-	【售票员9732】售票成功，剩余票数：4 \\
-	【售票员1640】售票成功，剩余票数：4 \\
-	【售票员5976】售票成功，剩余票数：4 \\
-	【售票员8048】售票成功，剩余票数：4 \\
-	【售票员10516】售票成功，剩余票数：4 \\
-	【售票员9732】售票成功，剩余票数：3 \\
-	【售票员1640】售票成功，剩余票数：3 \\
-	【售票员5976】售票成功，剩余票数：3 \\
-	【售票员8048】售票成功，剩余票数：3 \\
-	【售票员10516】售票成功，剩余票数：3 \\
-	【售票员9732】售票成功，剩余票数：2  \\
-	【售票员1640】售票成功，剩余票数：2  \\
-	【售票员5976】售票成功，剩余票数：2  \\
-	【售票员8048】售票成功，剩余票数：2  \\
-	【售票员10516】售票成功，剩余票数：2 \\
-	【售票员9732】售票成功，剩余票数：1 \\
-	【售票员1640】售票成功，剩余票数：1 \\
-	【售票员5976】售票成功，剩余票数：1 \\
-	【售票员8048】售票成功，剩余票数：1 \\
-	【售票员10516】售票成功，剩余票数：1 \\
-	【售票员1640】售票成功，剩余票数：0 \\
-	【售票员9732】售票成功，剩余票数：0 \\
-	【售票员5976】售票成功，剩余票数：0 \\
-	【售票员8048】售票成功，剩余票数：0 \\
-	【售票员10516】售票成功，剩余票数：0
+	\mybox{运行结果}
+	\begin{verbatim}
+【售票员9732】售票成功，剩余票数：4
+【售票员1640】售票成功，剩余票数：4
+【售票员5976】售票成功，剩余票数：4
+【售票员8048】售票成功，剩余票数：4
+【售票员10516】售票成功，剩余票数：4
+【售票员9732】售票成功，剩余票数：3
+【售票员1640】售票成功，剩余票数：3
+【售票员5976】售票成功，剩余票数：3
+【售票员8048】售票成功，剩余票数：3
+【售票员10516】售票成功，剩余票数：3
+【售票员9732】售票成功，剩余票数：2
+【售票员1640】售票成功，剩余票数：2
+【售票员5976】售票成功，剩余票数：2
+【售票员8048】售票成功，剩余票数：2
+【售票员10516】售票成功，剩余票数：2
+【售票员9732】售票成功，剩余票数：1
+【售票员1640】售票成功，剩余票数：1
+【售票员5976】售票成功，剩余票数：1
+【售票员8048】售票成功，剩余票数：1
+【售票员10516】售票成功，剩余票数：1
+【售票员1640】售票成功，剩余票数：0
+【售票员9732】售票成功，剩余票数：0
+【售票员5976】售票成功，剩余票数：0
+【售票员8048】售票成功，剩余票数：0
+【售票员10516】售票成功，剩余票数：0
+	\end{verbatim}
 \end{tcolorbox}
 
 多个进程同时进行票数判断的时候，在没有及时修改票数的情况下，就会出现数据不同步的问题。这套操作由于没有对同步的限制，所以就造成了不同步的问题。 \\
@@ -910,6 +927,7 @@ if __name__ == "__main__":
 每个进程中访问临界资源的那段代码称为临界区，每次只允许一个进程进入临界区，进入后，不允许其它进程进入。不论是硬件临界资源还是软件临界资源，多个进程必须互斥的对它进行访问。使用临界区时，一般不允许其运行时间过长，只要运行在临界区的线程还没有离开，其它所有进入此临界区的线程都会被挂起而进入等待状态，因此会在一定程度上影响程序的运行性能。 \\
 
 \mybox{临界区}
+
 \begin{lstlisting}[language=C]
 do {
 	// entry section
@@ -926,6 +944,7 @@ Peterson算法是由Gary L. Peterson于1981年提出的一个实现互斥锁的�
 Peterson算法要求两个进程共享两个数据项： \\
 
 \mybox{Peterson算法}
+
 \begin{lstlisting}[language=C]
 int turn;		// 表示哪个进程可以进入临界区
 bool flag[2];	// 表示哪个进程准备进入临界区
@@ -938,6 +957,7 @@ bool flag[2];	// 表示哪个进程准备进入临界区
 互斥锁必须设定为一个原子操作（atomic operation），这意味着操作系统保证了如果一个进程锁定了一个互斥量，没有其它进程在同一时间可以成功锁定这个互斥量。 \\
 
 \mybox{互斥锁}
+
 \begin{lstlisting}[language=C]
 acquire() {
 	while(!available) {
@@ -967,6 +987,7 @@ do {
 \end{figure}
 
 \mybox{售票操作（正确版本）}
+
 \begin{lstlisting}[language=Python]
 import multiprocessing
 import time
@@ -1017,12 +1038,14 @@ if __name__ == "__main__":
 \end{lstlisting}
 
 \begin{tcolorbox}
-	\mybox{运行结果} \\
-	【售票员14612】售票成功，剩余票数：4 \\
-	【售票员15868】售票成功，剩余票数：3 \\
-	【售票员13972】售票成功，剩余票数：2 \\
-	【售票员10844】售票成功，剩余票数：1 \\
-	【售票员2872】售票成功，剩余票数：0
+	\mybox{运行结果}
+	\begin{verbatim}
+【售票员14612】售票成功，剩余票数：4
+【售票员15868】售票成功，剩余票数：3
+【售票员13972】售票成功，剩余票数：2
+【售票员10844】售票成功，剩余票数：1
+【售票员2872】售票成功，剩余票数：0
+	\end{verbatim}
 \end{tcolorbox}
 
 一旦程序中追加了同步锁，那么程序的部分代码就只能以单进程执行了，这样势必会造成程序的执行性能下降，只有在考虑数据操作安全的情况下才会使用锁机制。
@@ -1098,6 +1121,7 @@ Semaphore类本质上是一种带有计数功能的进程同步机制，acquire(
 Lock一般是针对于一个资源同步的，而Semaphore是针对有限资源的并行访问。 \\
 
 \mybox{信号量同步处理}
+
 \begin{lstlisting}[language=Python]
 import multiprocessing
 import time
@@ -1129,27 +1153,29 @@ if __name__ == "__main__":
 \end{lstlisting}
 
 \begin{tcolorbox}
-	\mybox{运行结果} \\
-	【进程7880】开始办理业务 \\
-	【进程3032】开始办理业务 \\
-	【进程5412】开始办理业务 \\
-	【进程7880】结束办理业务 \\
-	【进程2876】开始办理业务 \\
-	【进程3032】结束办理业务 \\
-	【进程14076】开始办理业务 \\
-	【进程5412】结束办理业务 \\
-	【进程8816】开始办理业务 \\
-	【进程2876】结束办理业务 \\
-	【进程14076】结束办理业务 \\
-	【进程7900】开始办理业务 \\
-	【进程7860】开始办理业务 \\
-	【进程8816】结束办理业务 \\
-	【进程16252】开始办理业务 \\
-	【进程7860】结束办理业务 \\
-	【进程7900】结束办理业务 \\
-	【进程972】开始办理业务 \\
-	【进程16252】结束办理业务 \\
-	【进程972】结束办理业务
+	\mybox{运行结果}
+	\begin{verbatim}
+【进程7880】开始办理业务
+【进程3032】开始办理业务
+【进程5412】开始办理业务
+【进程7880】结束办理业务
+【进程2876】开始办理业务
+【进程3032】结束办理业务
+【进程14076】开始办理业务
+【进程5412】结束办理业务
+【进程8816】开始办理业务
+【进程2876】结束办理业务
+【进程14076】结束办理业务
+【进程7900】开始办理业务 
+【进程7860】开始办理业务 
+【进程8816】结束办理业务 
+【进程16252】开始办理业务
+【进程7860】结束办理业务
+【进程7900】结束办理业务
+【进程972】开始办理业务
+【进程16252】结束办理业务
+【进程972】结束办理业务
+	\end{verbatim}
 \end{tcolorbox}
 
 一个信号量Semaphore是一个整型量，除对其初始化外，它只能由两个原子操作wait()和signal()进行访问。wait()和signal()即早前使用的P/V操作，P/V的名称来源于荷兰文proberen（测试）和verhogen（增量）。
@@ -1566,6 +1592,7 @@ do {
 之前对于哲学家就餐问题的解决算法可能产生死锁。为了使全部哲学家都能进餐，算法必须避免死锁和饥饿。可行的解决方案是最多只允许4个哲学家同时进餐厅，则至少有1个哲学家可以拿到两根筷子进餐。进餐完毕后放下筷子，其他哲学家就可进餐，这样就不会出现死锁和饥饿。 \\
 
 \mybox{哲学家就餐问题}
+
 \begin{lstlisting}[language=C]
 Semaphore capacity = 4;
 

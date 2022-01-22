@@ -44,6 +44,7 @@ def open(
 如果以只读的模式打开文件，并且文件路径不存在的话，就会出现FileNotFoundError错误信息。 \\
 
 \mybox{文件操作}
+
 \begin{lstlisting}[language=Python]
 def main():
     file = open(file="data.txt", mode="w")
@@ -59,12 +60,14 @@ if __name__ == "__main__":
 \end{lstlisting}
 
 \begin{tcolorbox}
-	\mybox{运行结果} \\
-	文件名称：data.txt \\
-	访问模式：w \\
-	文件状态：False \\
-	关闭文件... \\
-	文件状态：True
+	\mybox{运行结果}
+	\begin{verbatim}
+文件名称：data.txt
+访问模式：w
+文件状态：False
+关闭文件...
+文件状态：True
+	\end{verbatim}
 \end{tcolorbox}
 
 \subsection{文件读写}
@@ -108,6 +111,7 @@ if __name__ == "__main__":
 既然所有的文件对象最终都需要被开发者关闭，那么可以结合with语句实现自动的关闭处理。通过with实现所有资源对象的连接和释放是在Python中编写资源操作的重要技术手段，通过这样的操作可以极大地减少和优化代码结构。 \\
 
 \mybox{读取文件}
+
 \begin{lstlisting}[language=Python]
 def main():
     with open(file="data.txt", mode="r", encoding="utf-8") as file:
@@ -125,14 +129,18 @@ if __name__ == "__main__":
 \end{lstlisting}
 
 \begin{tcolorbox}
-	\mybox{运行结果} \\
-	小灰	16 \\
-	小白	17 \\
-	小黄	21
+	\mybox{运行结果}
+	\begin{verbatim}
+小灰	16
+小白	17
+小黄	21
+	\end{verbatim}
 \end{tcolorbox}
 
 \vspace{0.5cm}
+
 \mybox{写入文件}
+
 \begin{lstlisting}[language=Python]
 def main():
     with open(file="data.txt", mode="w", encoding="utf-8") as file:
@@ -145,11 +153,13 @@ if __name__ == "__main__":
 \end{lstlisting}
 
 \begin{tcolorbox}
-	\mybox{运行结果} \\
-	\textbf{data.txt} \\
-	小灰	16 \\
-	小白	17 \\
-	小黄	21
+	\mybox{运行结果}
+	\textbf{data.txt}
+	\begin{verbatim}
+小灰	16
+小白	17
+小黄	21
+	\end{verbatim}
 \end{tcolorbox}
 
 \newpage
@@ -175,6 +185,7 @@ if __name__ == "__main__":
 使用flush()进行缓冲区的强制清空，一旦强制清空之后，缓冲区的内容将全部输出。每次使用close()关闭文件流的时候默认情况下也会调用flush()进行缓冲区的清空处理。 \\
 
 \mybox{文件缓冲}
+
 \begin{lstlisting}[language=Python]
 import os
 
@@ -192,9 +203,11 @@ if __name__ == "__main__":
 \end{lstlisting}
 
 \begin{tcolorbox}
-	\mybox{运行结果} \\
-	\textbf{data.txt} \\
-	This is a test.
+	\mybox{运行结果}
+	\textbf{data.txt}
+	\begin{verbatim}
+This is a test.
+	\end{verbatim}
 \end{tcolorbox}
 
 \newpage

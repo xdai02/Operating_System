@@ -19,7 +19,12 @@
 \usepackage{circuitikz}
 \usepackage{stackengine}
 \usepackage{multirow}
+\usepackage{newtxtt}
 % \usepackage{minted}
+
+\makeatletter
+\newcommand{\verbatimfont}[1]{\renewcommand{\verbatim@font}{\ttfamily#1}}
+\makeatother
 
 \usetikzlibrary{calc,trees,positioning,arrows,fit,shapes}
 \usetikzlibrary{shapes.multipart,chains}
