@@ -20,11 +20,6 @@
 \usepackage{stackengine}
 \usepackage{multirow}
 \usepackage{newtxtt}
-% \usepackage{minted}
-
-\makeatletter
-\newcommand{\verbatimfont}[1]{\renewcommand{\verbatim@font}{\ttfamily#1}}
-\makeatother
 
 \usetikzlibrary{calc,trees,positioning,arrows,fit,shapes}
 \usetikzlibrary{shapes.multipart,chains}
@@ -35,6 +30,10 @@
 \tikzstyle{process} = [draw,minimum size=30pt,inner sep=0pt,circle]
 \tikzstyle{allocated} = [->,thick,arrows={-latex}]
 \tikzstyle{requested} = [<-,thick,arrows={latex-}, dashed]
+
+\makeatletter
+\newcommand{\verbatimfont}[1]{\renewcommand{\verbatim@font}{\ttfamily#1}}
+\makeatother
 
 \def\rlwd{.5pt} \def\rlht{2.2ex} \def\rldp{.5ex}
 \def\mydiv#1{~%
@@ -170,29 +169,6 @@
 		rounded corners=0.6cm,
 		transform canvas ={rotate around ={45:($(current page.north west)+(20,-9)$)}}]
 	($(current page.north west)+(20,-9)$) rectangle ++(14,1.2);
-
-	% Year
-	% \draw[ultra thick,gray]
-	% ($(current page.center)+(5,2)$) -- ++(0,-3cm)
-	node[
-			midway,
-			left=0.25cm,
-			text width=5cm,
-			align=right,
-			black!75
-		]
-		{
-			% {\fontsize{25}{30} \selectfont \bf ANNUAL \\[10pt] REPORT}
-		}
-	node[
-			midway,
-			right=0.25cm,
-			text width=6cm,
-			align=left,
-			orange]
-		{
-			% {\fontsize{72}{86.4} \selectfont 2020}
-		};
 
 	% Title
 	\node[align=center] at ($(current page.center)+(0,-7)$)
