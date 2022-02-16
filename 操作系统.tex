@@ -36,9 +36,9 @@
 \makeatother
 
 \def\rlwd{.5pt} \def\rlht{2.2ex} \def\rldp{.5ex}
-\def\mydiv#1{~%
-  \rule[-\rldp]{\rlwd}{\rlht}%
-  \setbox0=\hbox{~#1}%
+\def\mydiv#1{~
+  \rule[-\rldp]{\rlwd}{\rlht}
+  \setbox0=\hbox{~#1}
   \stackunder[\dimexpr\rldp-\rlwd]{~#1}{\rule{\wd0}{\rlwd}}%
 }
 
@@ -100,12 +100,10 @@
 \thispagestyle{empty}
 
 \begin{tikzpicture}[overlay,remember picture]
-	% Background color
 	\fill[
 		black!2]
 	(current page.south west) rectangle (current page.north east);
 
-	% Rectangles
 	\shade[
 		left color=Dandelion,
 		right color=Dandelion!40,
@@ -173,8 +171,8 @@
 	% Title
 	\node[align=center] at ($(current page.center)+(0,-7)$)
 	{
-	{\fontsize{72}{72} \selectfont {{操作系统}}} \\[1cm]
-	{\fontsize{42}{42} \selectfont {{Operating System}}} \\[2cm]
+	{\fontsize{72}{72} \selectfont {{操作系统}}}\\[1cm]
+	{\fontsize{42}{42} \selectfont {{Operating System}}}\\[2cm]
 	{\fontsize{20}{19.2} \selectfont \textcolor{orange}{ \bf 极夜酱}} \\[4pt]
 	};
 \end{tikzpicture}
@@ -191,9 +189,9 @@
 \setcounter{page}{1}
 
 \input{chapters/chapter1}
-\input{chapters/chapter2}
-\input{chapters/chapter3}
-\input{chapters/chapter4}
-\input{chapters/chapter5}
+% \input{chapters/chapter2}
+% \input{chapters/chapter3}
+% \input{chapters/chapter4}
+% \input{chapters/chapter5}
 
 \end{document}
