@@ -4,13 +4,7 @@
 
 \subsection{进程（Process）}
 
-Windows任务管理器提供了有关计算机性能的信息，并显示了计算机上所运行的程序和进程的详细信息。
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.6]{img/C2/2-1/1.png}
-    \caption{Windows进程}
-\end{figure}
+Windows任务管理器提供了有关计算机性能的信息，并显示了计算机上所运行的程序和进程的详细信息。\\
 
 进程指的是一个具有一定独立功能的程序关于某个数据集合的一次运行活动。进程是系统进行资源分配和调度运行的基本单位。进程实体中包含三个组成部分：
 
@@ -20,21 +14,7 @@ Windows任务管理器提供了有关计算机性能的信息，并显示了计�
     \item 进程控制块（PCB, Process Control Block）
 \end{enumerate}
 
-程序（program）与进程是有区别的，程序是静态的，进程是动态的。当程序的可执行文件被装入内存后就会变成进程。进程可以认为是执行中的程序，进程需要一定资源（如CPU时间、内存、文件、I/O设备）完成任务。这些资源可以在创建的时候或者运行中分配。一个程序可以通过GUI（Graphic User Interface）图形用户界面的鼠标点击、CLI（Command-line Interface）命令行界面输入程序名等方式运行。
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[]{img/C2/2-1/2.png}
-    \caption{GUI图形用户界面}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.5]{img/C2/2-1/3.png}
-    \caption{CLI命令行界面}
-\end{figure}
-
-\vspace{0.5cm}
+程序（program）与进程是有区别的，程序是静态的，进程是动态的。当程序的可执行文件被装入内存后就会变成进程。进程可以认为是执行中的程序，进程需要一定资源（如CPU时间、内存、文件、I/O设备）完成任务。这些资源可以在创建的时候或者运行中分配。一个程序可以通过GUI（Graphic User Interface）图形用户界面的鼠标点击、CLI（Command-line Interface）命令行界面输入程序名等方式运行。\\
 
 \subsection{内存管理}
 
@@ -216,17 +196,7 @@ struct files_struct *files;	/* list of open files */
 struct mm_struct *mm;		/* address space */
 \end{lstlisting}
 
-\vspace{0.5cm}
-
-\subsection{进程切换}
-
 当CPU切换到另一个进程时，系统必须保存当前执行进程的上下文（context），并且加载需要被执行进程的上下文。进程的上下文都被保存在PCB中。
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.5]{img/C2/2-2/1.png}
-    \caption{进程切换}
-\end{figure}
 
 \newpage
 
@@ -697,9 +667,19 @@ RR算法的性能很大程度取决于时间片的大小。在一种极端情况
 
 \begin{figure}[H]
     \centering
-    \includegraphics[]{img/C2/2-5/1.png}
+    \begin{tikzpicture}
+        \draw (0,0) rectangle node{工作进程} (2,1);
+        \draw (4,0) rectangle node{进程管道} (6,1);
+        \draw (8,0) rectangle node{工作进程} (10,1);
+        \draw[->] (2,0.75) -- (3,0.75) node[above]{写} -- (4,0.75);
+        \draw[<-] (2,0.25) -- (3,0.25) node[below]{读} -- (4,0.25);
+        \draw[->] (6,0.75) -- (7,0.75) node[above]{写} -- (8,0.75);
+        \draw[<-] (6,0.25) -- (7,0.25) node[below]{读} -- (8,0.25);
+    \end{tikzpicture}
     \caption{进程间通信}
 \end{figure}
+
+\vspace{0.5cm}
 
 \mybox{创建进程通讯管道}
 
@@ -765,8 +745,14 @@ if __name__ == "__main__":
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.6]{img/C2/2-5/2.png}
-    \caption{生产者/消费者问题}
+    \begin{tikzpicture}
+        \draw (0,0) rectangle node{生产进程} (2,1);
+        \draw (4,0) rectangle node{进程队列} (6,1);
+        \draw (8,0) rectangle node{消费进程} (10,1);
+        \draw[->] (2,0.5) -- (3,0.5) node[above]{put} -- (4,0.5);
+        \draw[->] (6,0.5) -- (7,0.5) node[above]{get} -- (8,0.5);
+    \end{tikzpicture}
+    \caption{生产者/消费者}
 \end{figure}
 
 multiprocessing.Queue是Python多进程编程中提供的进程队列结构，该队列采用FIFO的形式实现不同进程间的数据通讯，这样可以保证多个数据可以按序实现发送与接收处理。\\
@@ -1004,13 +990,7 @@ do {
 } while(true);
 \end{lstlisting}
 
-并发进程的执行如果要进行同步处理，那么就必须对一些核心代码进行同步。Python中提供了一个Lock同步锁机制，利用这种锁机制可以实现部分代码的同步锁定，保证每一次只允许有一个进程执行这部分的代码。
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[]{img/C2/2-6/1.png}
-    \caption{互斥锁}
-\end{figure}
+并发进程的执行如果要进行同步处理，那么就必须对一些核心代码进行同步。Python中提供了一个Lock同步锁机制，利用这种锁机制可以实现部分代码的同步锁定，保证每一次只允许有一个进程执行这部分的代码。\\
 
 \mybox{售票操作（正确版本）}
 
@@ -1144,13 +1124,7 @@ do {
 
 Semaphore（信号量）是一种有限资源的进程同步管理机制。例如银行的业务办理，所有客户都会拿到一个号码，而后号码会被业务窗口叫号，被叫号的办理者就可以办理业务。\\
 
-Semaphore类本质上是一种带有计数功能的进程同步机制，acquire()减少计数，release()增加计数。当可用信号量的计数为0时，后续进程将被阻塞。
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.6]{img/C2/2-7/1.png}
-    \caption{互斥锁}
-\end{figure}
+Semaphore类本质上是一种带有计数功能的进程同步机制，acquire()减少计数，release()增加计数。当可用信号量的计数为0时，后续进程将被阻塞。\\
 
 Lock一般是针对于一个资源同步的，而Semaphore是针对有限资源的并行访问。\\
 
@@ -1285,15 +1259,7 @@ signal(Semaphore *s) {
 
 \subsection{死锁（Deadlock）}
 
-计算机系统中有很多独占性的资源，在同一时刻只能每个资源只能由一个进程使用。死锁是指两个或两个以上的进程在执行过程中，由于竞争资源或者由于彼此通信而造成的一种永久阻塞的现象。若无外力作用，它们都将无法推进下去，此时称系统处于死锁状态。
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.9]{img/C2/2-8/1.png}
-    \caption{死锁}
-\end{figure}
-
-\vspace{0.5cm}
+计算机系统中有很多独占性的资源，在同一时刻只能每个资源只能由一个进程使用。死锁是指两个或两个以上的进程在执行过程中，由于竞争资源或者由于彼此通信而造成的一种永久阻塞的现象。若无外力作用，它们都将无法推进下去，此时称系统处于死锁状态。\\
 
 \subsection{哲学家就餐问题（Dining Philosophers Problem）}
 
@@ -1301,7 +1267,7 @@ signal(Semaphore *s) {
 
 \begin{figure}[H]
     \centering
-    \includegraphics[]{img/C2/2-8/2.png}
+    \includegraphics[]{img/C2/2-8/1.png}
     \caption{哲学家就餐问题}
 \end{figure}
 

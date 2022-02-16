@@ -26,7 +26,12 @@
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.8]{img/C1/1-1/2.png}
+	\begin{tikzpicture}
+		\draw (0,0) rectangle node{Computer Hardware} (5,1) node[right]{OS Designer};
+		\draw (0,1) rectangle node{Operating System} (4,2) node[right]{Programmer};
+		\draw (0,2) rectangle node{Utilities} (3,3);
+		\draw (0,3) rectangle node{Applications} (2.5,4) node[right]{End User};
+	\end{tikzpicture}
 	\caption{计算机用户层级}
 \end{figure}
 
@@ -40,7 +45,7 @@
 	\item 普通用户：OS是计算机用户使用计算机系统的接口，它为计算机用户提供而方便的工作环境。
 	      \begin{figure}[H]
 		      \centering
-		      \includegraphics[scale=0.7]{img/C1/1-1/3.png}
+		      \includegraphics[scale=0.7]{img/C1/1-1/2.png}
 		      \caption{常见操作系统}
 	      \end{figure}
 
@@ -221,7 +226,18 @@ if __name__ == "__main__":
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.7]{img/C1/1-5/1.png}
+	\begin{tikzpicture}
+		\draw (0,0) rectangle node{magnetic tapes} (8,1);
+		\draw (0.5,1) rectangle node{optical disk} (7.5,2);
+		\draw (1,2) rectangle node{hard disk} (7,3);
+		\draw (1.5,3) rectangle node{solid-state disk} (6.5,4);
+		\draw (2,4) rectangle node{main memory} (6,5);
+		\draw (2.5,5) rectangle node{cache} (5.5,6);
+		\draw (3,6) rectangle node{registers} (5,7);
+
+		\draw[->] (-1,0) -- (-1,7) node[above]{more expensive, faster, smaller};
+		\draw[->] (9,7) -- (9,0) node[below]{bigger, slower};
+	\end{tikzpicture}
 	\caption{存储设备}
 \end{figure}
 
@@ -232,15 +248,15 @@ if __name__ == "__main__":
 CPU缓存是位于CPU与内存之间的临时存储器，它的容量比内存小的多但是交换速率却比内存要快得多。缓存的出现主要是为了解决CPU运算速率与内存读写速率不匹配的矛盾，因为CPU运算速率要比内存读写速率快很多，这样会使CPU花费很长时间等待数据到来或把数据写入内存。在缓存中的数据是内存中的一小部分，但这一小部分是短时间内CPU即将访问的，当CPU调用大量数据时，就可避开内存直接从缓存中调用，从而加快读取速率。
 
 \begin{figure}[H]
-    \centering
-    \begin{tikzpicture}
-        \draw (0,0) rectangle node{CPU} (2,1);
+	\centering
+	\begin{tikzpicture}
+		\draw (0,0) rectangle node{CPU} (2,1);
 		\draw (4,0) rectangle node{Cache} (6,1);
 		\draw (8,-0.5) rectangle node{Main Memory} (11,1.5);
 		\draw[<->] (2,0.5) -- (3,0.5) node[below]{fast} -- (4,0.5);
 		\draw[<->] (6,0.5) -- (7,0.5) node[below]{slow} -- (8,0.5);
 	\end{tikzpicture}
-    \caption{内存缓存}
+	\caption{内存缓存}
 \end{figure}
 
 \newpage
@@ -251,15 +267,7 @@ CPU缓存是位于CPU与内存之间的临时存储器，它的容量比内存�
 
 操作系统一直在不断地更新版本，版本升级就是操作系统的改变。操作系统改变的原因包括修复漏洞、支持新的服务、硬件升级、提升性能等。\\
 
-串行处理时期的计算机体积非常大，因为没有操作系统，所以操作的时候需要通过扳动按钮，最终通过灯来进行显示。这种计算机必须全部由专家操作，一般用户是用不了这台计算机的。
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.7]{img/C1/1-6/1.png}
-	\caption{串行处理}
-\end{figure}
-
-这就导致了两个主要的问题：
+串行处理时期的计算机体积非常大，因为没有操作系统，所以操作的时候需要通过扳动按钮，最终通过灯来进行显示。这种计算机必须全部由专家操作，一般用户是用不了这台计算机的。这就导致了两个主要的问题：
 
 \begin{enumerate}
 	\item 调度低效：机器需要等待人扳动按钮，浪费时间。
@@ -274,43 +282,21 @@ CPU缓存是位于CPU与内存之间的临时存储器，它的容量比内存�
 
 \subsection{多道程序系统（Multiprogramming）}
 
-一个支持Multiprogramming的系统允许多道程序同时准备运行。当正在运行的那道程序因为某种原因（比如等待输入或输出数据）暂时不能继续运行时，系统将自动地启动另一道程序运行。一旦原因消除（比如数据已经到达或数据已经输出完毕），暂时停止运行的那道程序在将来某个时候还可以被系统重新启动继续运行。
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[]{img/C1/1-6/2.png}
-	\caption{多道程序系统}
-\end{figure}
-
-\vspace{0.5cm}
+一个支持Multiprogramming的系统允许多道程序同时准备运行。当正在运行的那道程序因为某种原因（比如等待输入或输出数据）暂时不能继续运行时，系统将自动地启动另一道程序运行。一旦原因消除（比如数据已经到达或数据已经输出完毕），暂时停止运行的那道程序在将来某个时候还可以被系统重新启动继续运行。\\
 
 \subsection{并发编程（Concurrent）}
 
 并发编程是一种有效提高操作系统（服务器）性能的技术手段，现代的操作系统之中最为重要的代表就是并发性，例如现在的CPU都属于多核CPU。\\
 
-早期的DOS操作系统有一个非常重要的特征：一旦系统沾染了病毒，那么所有的程序就无法直接执行了。因为传统的DOS系统属于单进程模型，在同一个时间段上只能运行一个程序，病毒程序运行了，其它程序自然就无法运行。\\
+早期的DOS操作系统有一个非常重要的特征，一旦系统沾染了病毒，那么所有的程序就无法直接执行了。因为传统的DOS系统属于单进程模型，在同一个时间段上只能运行一个程序，病毒程序运行了，其它程序自然就无法运行。\\
 
-后来到了Windows操作系统，即便有病毒，也可以正常执行。这采用的是多进程的编程模型，同一时间段上可以同时运行多个程序。
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.6]{img/C1/1-6/3.png}
-	\caption{并发编程}
-\end{figure}
-
-只要打开Windows的任务管理器，就可以直接清楚发现所有正在执行的并行进程。
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.7]{img/C1/1-6/4.png}
-	\caption{任务管理器}
-\end{figure}
+后来到了Windows操作系统，即便有病毒，也可以正常执行。这采用的是多进程的编程模型，同一时间段上可以同时运行多个程序。只要打开Windows的任务管理器，就可以直接清楚发现所有正在执行的并行进程。\\
 
 在早期的硬件系统之中由于没有多核CPU的设计，利用时间片的轮转算法（Round Robin），保证在同一个时间段可以同时执行多个进行，但是在某一个时间点上只允许执行一个进程，可以实现资源的切换。
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.6]{img/C1/1-6/5.png}
+	\includegraphics[scale=0.6]{img/C1/1-6/1.png}
 	\caption{时间片轮转算法}
 \end{figure}
 
@@ -318,13 +304,7 @@ CPU缓存是位于CPU与内存之间的临时存储器，它的容量比内存�
 
 \subsection{分时系统（Time-Sharing System）}
 
-分时系统首先是个多道系统，分时在多道的基础上对每个任务以时间为固定切片，时间到了就切换到下一个任务。这种系统非常适合于交互式系统，例如访问网络服务器，采用时间片轮转的方式同时为几十个、几百个用户服务。
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[scale=0.55]{img/C1/1-6/6.png}
-	\caption{分时系统}
-\end{figure}
+分时系统首先是个多道系统，分时在多道的基础上对每个任务以时间为固定切片，时间到了就切换到下一个任务。这种系统非常适合于交互式系统，例如访问网络服务器，采用时间片轮转的方式同时为几十个、几百个用户服务。\\
 
 分时系统会有一些问题，比如时间片太短会频繁的中断，造成很大的系统开销，或者有些任务不能被中断，被中断后可能恢复不了。所以分时系统是在某些需求的环境下才会提供。\\
 

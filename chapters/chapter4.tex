@@ -242,7 +242,7 @@ I/O控制方式包括：
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.9]{img/C4/4-4/1.png}
+    \includegraphics[scale=0.5]{img/C4/4-4/1.png}
     \caption{磁盘}
 \end{figure}
 
@@ -252,7 +252,29 @@ I/O控制方式包括：
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.25]{img/C4/4-4/2.png}
+    \begin{tikzpicture}
+        \draw (0,0) rectangle (15,10);
+        \draw (0.5,10) -- (0.5,10.2) node[above]{0};
+        \draw (1.2,10) -- (1.2,10.2) node[above]{14};
+        \draw (2.5,10) -- (2.5,10.2) node[above]{37};
+        \draw (4,10) -- (4,10.2) node[above]{\textcolor{red}{53}};
+        \draw (4.8,10) -- (4.8,10.2) node[above]{65};
+        \draw (5.3,10) -- (5.3,10.2) node[above]{67};
+        \draw (7.5,10) -- (7.5,10.2) node[above]{98};
+        \draw (10,10) -- (10,10.2) node[above]{122};
+        \draw (10.8,10) -- (10.8,10.2) node[above]{124};
+        \draw (13,10) -- (13,10.2) node[above]{183};
+        \draw (14.5,10) -- (14.5,10.2) node[above]{199};
+
+        \draw[->, very thick, blue] (4,9) -- (7.5,8);
+        \draw[->, very thick, blue] (7.5,8) -- (13,7);
+        \draw[->, very thick, blue] (13,7) -- (2.5,6);
+        \draw[->, very thick, blue] (2.5,6) -- (10,5);
+        \draw[->, very thick, blue] (10,5) -- (1.2,4);
+        \draw[->, very thick, blue] (1.2,4) -- (10.8,3);
+        \draw[->, very thick, blue] (10.8,3) -- (4,2);
+        \draw[->, very thick, blue] (4,2) -- (5.3,1);
+    \end{tikzpicture}
     \caption{先来先服务FCFS}
 \end{figure}
 
@@ -264,7 +286,29 @@ SSTF算法优先选择从当前磁头位置所需寻道时间最短的请求。
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.35]{img/C4/4-4/3.png}
+    \begin{tikzpicture}
+        \draw (0,0) rectangle (15,10);
+        \draw (0.5,10) -- (0.5,10.2) node[above]{0};
+        \draw (1.2,10) -- (1.2,10.2) node[above]{14};
+        \draw (2.5,10) -- (2.5,10.2) node[above]{37};
+        \draw (4,10) -- (4,10.2) node[above]{\textcolor{red}{53}};
+        \draw (4.8,10) -- (4.8,10.2) node[above]{65};
+        \draw (5.3,10) -- (5.3,10.2) node[above]{67};
+        \draw (7.5,10) -- (7.5,10.2) node[above]{98};
+        \draw (10,10) -- (10,10.2) node[above]{122};
+        \draw (10.8,10) -- (10.8,10.2) node[above]{124};
+        \draw (13,10) -- (13,10.2) node[above]{183};
+        \draw (14.5,10) -- (14.5,10.2) node[above]{199};
+
+        \draw[->, very thick, blue] (4,9) -- (4.8,8);
+        \draw[->, very thick, blue] (4.8,8) -- (5.3,7);
+        \draw[->, very thick, blue] (5.3,7) -- (2.5,6);
+        \draw[->, very thick, blue] (2.5,6) -- (1.2,5);
+        \draw[->, very thick, blue] (1.2,5) -- (7.5,4);
+        \draw[->, very thick, blue] (7.5,4) -- (10,3);
+        \draw[->, very thick, blue] (10,3) -- (10.8,2);
+        \draw[->, very thick, blue] (10.8,2) -- (13,1);
+    \end{tikzpicture}
     \caption{最短寻道时间优先SSTF}
 \end{figure}
 
@@ -276,7 +320,30 @@ SSTF算法优先选择从当前磁头位置所需寻道时间最短的请求。
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.35]{img/C4/4-4/3.png}
+    \begin{tikzpicture}
+        \draw (0,0) rectangle (15,10);
+        \draw (0.5,10) -- (0.5,10.2) node[above]{0};
+        \draw (1.2,10) -- (1.2,10.2) node[above]{14};
+        \draw (2.5,10) -- (2.5,10.2) node[above]{37};
+        \draw (4,10) -- (4,10.2) node[above]{\textcolor{red}{53}};
+        \draw (4.8,10) -- (4.8,10.2) node[above]{65};
+        \draw (5.3,10) -- (5.3,10.2) node[above]{67};
+        \draw (7.5,10) -- (7.5,10.2) node[above]{98};
+        \draw (10,10) -- (10,10.2) node[above]{122};
+        \draw (10.8,10) -- (10.8,10.2) node[above]{124};
+        \draw (13,10) -- (13,10.2) node[above]{183};
+        \draw (14.5,10) -- (14.5,10.2) node[above]{199};
+
+        \draw[->, very thick, blue] (4,9) -- (2.5,8);
+        \draw[->, very thick, blue] (2.5,8) -- (1.2,7);
+        \draw[->, very thick, blue] (1.2,7) -- (0.5,6);
+        \draw[->, very thick, blue] (0.5,6) -- (4.8,5);
+        \draw[->, very thick, blue] (4.8,5) -- (5.3,4);
+        \draw[->, very thick, blue] (5.3,4) -- (7.5,3);
+        \draw[->, very thick, blue] (7.5,3) -- (10,2);
+        \draw[->, very thick, blue] (10,2) -- (10.8,1);
+        \draw[->, very thick, blue] (10.8,1) -- (14.5,0.5);
+    \end{tikzpicture}
     \caption{扫描算法SCAN}
 \end{figure}
 
@@ -290,7 +357,31 @@ CSCAN算法的特点就是磁道只响应一个方向上的请求，相比于SCA
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=1.3]{img/C4/4-4/4.png}
+    \begin{tikzpicture}
+        \draw (0,0) rectangle (15,10);
+        \draw (0.5,10) -- (0.5,10.2) node[above]{0};
+        \draw (1.2,10) -- (1.2,10.2) node[above]{14};
+        \draw (2.5,10) -- (2.5,10.2) node[above]{37};
+        \draw (4,10) -- (4,10.2) node[above]{\textcolor{red}{53}};
+        \draw (4.8,10) -- (4.8,10.2) node[above]{65};
+        \draw (5.3,10) -- (5.3,10.2) node[above]{67};
+        \draw (7.5,10) -- (7.5,10.2) node[above]{98};
+        \draw (10,10) -- (10,10.2) node[above]{122};
+        \draw (10.8,10) -- (10.8,10.2) node[above]{124};
+        \draw (13,10) -- (13,10.2) node[above]{183};
+        \draw (14.5,10) -- (14.5,10.2) node[above]{199};
+
+        \draw[->, very thick, blue] (4,9) -- (4.8,8);
+        \draw[->, very thick, blue] (4.8,8) -- (5.3,7);
+        \draw[->, very thick, blue] (5.3,7) -- (7.5,6);
+        \draw[->, very thick, blue] (7.5,6) -- (10,5);
+        \draw[->, very thick, blue] (10,5) -- (10.8,4);
+        \draw[->, very thick, blue] (10.8,4) -- (13,3);
+        \draw[->, very thick, blue] (13,3) -- (14.5,2);
+        \draw[->, very thick, blue] (14.5,2) -- (0.5,1.5);
+        \draw[->, very thick, blue] (0.5,1.5) -- (1.2,1);
+        \draw[->, very thick, blue] (1.2,1) -- (2.5,0.5);
+    \end{tikzpicture}
     \caption{循环扫描算法CSCAN}
 \end{figure}
 
