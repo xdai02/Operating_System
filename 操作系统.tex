@@ -42,6 +42,46 @@
   \stackunder[\dimexpr\rldp-\rlwd]{~#1}{\rule{\wd0}{\rlwd}}%
 }
 
+\tikzset{pics/.cd,
+  stapel/.style n args={3}{
+    code={\draw (0,0) ellipse (0.75 and 0.3);
+    \draw (-0.75,0) -- (-0.75,-4);
+    \draw (-0.75,-4) arc (180:360:0.75 and 0.3);
+    \draw (-0.75,-3) arc (180:360:0.75 and 0.3);
+    \draw (-0.75,-2) arc (180:360:0.75 and 0.3);
+    \draw (-0.75,-1) arc (180:360:0.75 and 0.3);
+    \draw (0.75,-4) -- (0.75,0);
+    \node at (0,-1) {#1};
+    \node at (0,-2) {#2};
+    \node at (0,-3) {#3};
+    \node at (0,-4) {$ \vdots $};
+    \coordinate (-top) at (0,0);
+    }}}
+
+\newcommand*\RLLink[3]
+{
+  \foreach \x[count=\xi] in {#1}
+  {
+    \ifnum\xi=1
+      \xdef\firstnode{\x}
+    \else
+      \xdef\lastnode{\x}
+    \fi
+  }
+  \coordinate (fnl) at ([yshift=1cm]\firstnode);
+  \coordinate (lnl) at ([yshift=1cm]\lastnode);
+  \draw (fnl) -- (lnl);
+  \foreach \x in {#1}
+  {
+    \draw (\x) -- ++(0,1);
+  }
+  \coordinate (anchorb) at ($(fnl)!0.5!(lnl)$);
+  \coordinate (anchort) at ([yshift=1cm]anchorb);
+  \draw (anchorb) -- (anchort);
+  \node[left] at (anchort) {#2};
+  \node[above right] at (anchorb) {#3};
+}
+
 \definecolor{mycolor}{RGB}{0,128,128}
 \newtcbox{\mybox} {
     on line,
@@ -188,9 +228,9 @@
 
 \setcounter{page}{1}
 
-% \input{chapters/chapter1}
-% \input{chapters/chapter2}
-% \input{chapters/chapter3}
+\input{chapters/chapter1}
+\input{chapters/chapter2}
+\input{chapters/chapter3}
 \input{chapters/chapter4}
 \input{chapters/chapter5}
 
