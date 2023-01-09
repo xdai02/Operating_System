@@ -12,17 +12,17 @@ int main() {
     // fork a child process
     pid = fork();
 
-    if(pid < 0) {               // error
+    if (pid < 0) {  // error
         fprintf(stderr, "Fork failed.\n");
         return 1;
-    } else if(pid == 0) {       // child process
+    } else if (pid == 0) {  // child process
         printf("Child process: pid is %d\n", getpid());
         execlp("/bin/ls", "ls", NULL);
-    } else {                    // parent process
+    } else {  // parent process
         printf("Parent process: pid is %d\n", getpid());
         wait(NULL);
         printf("Child completed.");
     }
-    
+
     return 0;
 }

@@ -2,29 +2,18 @@ import multiprocessing
 import time
 
 def produce(queue):
-    """
-        生产数据
-        Args:
-            queue (Queue): 进程队列
-    """
-    # 生产3条数据
     for item in range(3):
         time.sleep(2)
         data = "data-%d" % item
-        print("【%s】生产数据：%s" % (
+        print("[%s] Produced: %s" % (
             multiprocessing.current_process().name,
             data
         ))
         queue.put(data)
 
 def consume(queue):
-    """
-        消费数据
-        Args:
-            queue (Queue): 进程队列
-    """
-    while True:     # 持续消费
-        print("【%s】消费数据：%s" % (
+    while True:
+        print("[%s] Consumed: %s" % (
             multiprocessing.current_process().name,
             queue.get()
         ))

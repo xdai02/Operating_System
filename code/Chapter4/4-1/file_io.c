@@ -3,32 +3,32 @@
 
 void writeFile(const char *filename) {
     FILE *fp = fopen(filename, "w");
-    if(!fp) {
+    if (!fp) {
         fprintf(stderr, "File open failed.\n");
         exit(1);
     }
-    char *name = "小灰";
-    int age = 17;
-    double height = 182.3;
-    fprintf(fp, "姓名：%s\n年龄：%d\n身高：%.2f\n", 
-                name, age, height);
+    char *name = "Terry";
+    int age = 24;
+    double height = 179.8;
+    fprintf(fp, "Name: %s\nAge: %d\nHeight: %.2f\n",
+            name, age, height);
     fclose(fp);
 }
 
 void readFile(const char *filename) {
     FILE *fp = fopen(filename, "r");
-    if(!fp) {
+    if (!fp) {
         fprintf(stderr, "File open failed.\n");
         exit(1);
     }
     char name[32];
     int age;
     double height;
-    fscanf(fp, "姓名：%s\n年龄：%d\n身高：%lf\n", 
-                name, &age, &height);
-    printf("name: %s\n", name);
-    printf("age: %d\n", age);
-    printf("height: %.2f\n", height);
+    fscanf(fp, "Name: %s\nAge: %d\nHeight: %lf\n",
+           name, &age, &height);
+    printf("Name: %s\n", name);
+    printf("Age: %d\n", age);
+    printf("Height: %.2f\n", height);
     fclose(fp);
 }
 

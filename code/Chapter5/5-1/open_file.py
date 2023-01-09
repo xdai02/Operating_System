@@ -1,0 +1,7 @@
+file = open(file="data.txt", mode="w")
+print("File name: %s" % file.name)
+print("Mode: %s" % file.mode)
+print("Status: %s" % file.closed)
+print("Closing...")
+file.close()
+print("Status: %s" % file.closed)

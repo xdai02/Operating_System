@@ -48,27 +48,23 @@ def open(
 \mybox{文件操作}
 
 \begin{lstlisting}[language=Python]
-def main():
-    file = open(file="data.txt", mode="w")
-    print("文件名称：%s" % file.name)
-    print("访问模式：%s" % file.mode)
-    print("文件状态：%s" % file.closed)
-    print("关闭文件...")
-    file.close()
-    print("文件状态：%s" % file.closed)
-
-if __name__ == "__main__":
-    main()
+file = open(file="data.txt", mode="w")
+print("File name: %s" % file.name)
+print("Mode: %s" % file.mode)
+print("Status: %s" % file.closed)
+print("Closing...")
+file.close()
+print("Status: %s" % file.closed)
 \end{lstlisting}
 
 \begin{tcolorbox}
 	\mybox{运行结果}
 	\begin{verbatim}
-文件名称：data.txt
-访问模式：w
-文件状态：False
-关闭文件...
-文件状态：True
+File name: data.txt
+Mode: w
+Status: False
+Closing...
+Status: True
 	\end{verbatim}
 \end{tcolorbox}
 
@@ -117,27 +113,23 @@ if __name__ == "__main__":
 \mybox{读取文件}
 
 \begin{lstlisting}[language=Python]
-def main():
-    with open(file="data.txt", mode="r", encoding="utf-8") as file:
-        for line in file:
-            print(line, end='')
-
-if __name__ == "__main__":
-    main()
+with open(file="data.txt", mode="r", encoding="utf-8") as file:
+for line in file:
+	print(line, end='')
 \end{lstlisting}
 
 \begin{lstlisting}[language=Python, title=data.txt]
-小灰	16
-小白	17
-小黄	21
+Alice 16
+Bob 17
+Terry 21
 \end{lstlisting}
 
 \begin{tcolorbox}
 	\mybox{运行结果}
 	\begin{verbatim}
-小灰	16
-小白	17
-小黄	21
+Alice 16
+Bob 17
+Terry 21
 	\end{verbatim}
 \end{tcolorbox}
 
@@ -146,23 +138,19 @@ if __name__ == "__main__":
 \mybox{写入文件}
 
 \begin{lstlisting}[language=Python]
-def main():
-    with open(file="data.txt", mode="w", encoding="utf-8") as file:
-        info = {"小灰": 16, "小白": 17, "小黄": 21}
-        for name, age in info.items():
-            file.write("%s\t%d\n" % (name, age))
-
-if __name__ == "__main__":
-    main()
+with open(file="data.txt", mode="w", encoding="utf-8") as file:
+info = {"Alice": 16, "Bob": 17, "Terry": 21}
+for name, age in info.items():
+	file.write("%s %d\n" % (name, age))
 \end{lstlisting}
 
 \begin{tcolorbox}
 	\mybox{运行结果}
 	\textbf{data.txt}
 	\begin{verbatim}
-小灰	16
-小白	17
-小黄	21
+Alice 16
+Bob 17
+Terry 21
 	\end{verbatim}
 \end{tcolorbox}
 
@@ -193,17 +181,12 @@ if __name__ == "__main__":
 \begin{lstlisting}[language=Python]
 import os
 
-def main():
-    file = open(file="data.txt", mode="w",
-                encoding="utf-8", buffering=1)
-    file.write("This is a test.")
-    os.system("pause")  # 程序暂停
-    file.flush()        # 强制清空缓冲区
-    os.system("pause")  # 程序暂停
-    file.close()
-
-if __name__ == "__main__":
-    main()
+file = open(file="data.txt", mode="w", encoding="utf-8", buffering=1)
+file.write("This is a test.")
+os.system("pause")
+file.flush()
+os.system("pause")
+file.close()
 \end{lstlisting}
 
 \begin{tcolorbox}
@@ -232,7 +215,7 @@ Linux文件系统会为每个文件分配索引结点（inode）和目录项（d
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.35]{img/C5/5-3/1.png}
+	\includegraphics[scale=0.35]{img/Chapter5/5-3/1.png}
 	\caption{文件系统}
 \end{figure}
 
@@ -350,7 +333,7 @@ Linux文件系统会为每个文件分配索引结点（inode）和目录项（d
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.35]{img/C5/5-4/1.png}
+	\includegraphics[scale=0.35]{img/Chapter5/5-4/1.png}
 	\caption{索引分配}
 \end{figure}
 
@@ -366,7 +349,7 @@ Linux文件系统会为每个文件分配索引结点（inode）和目录项（d
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.4]{img/C5/5-4/2.png}
+	\includegraphics[scale=0.4]{img/Chapter5/5-4/2.png}
 	\caption{链式索引块}
 \end{figure}
 
@@ -382,7 +365,7 @@ Linux文件系统会为每个文件分配索引结点（inode）和目录项（d
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.25]{img/C5/5-5/1.png}
+	\includegraphics[scale=0.25]{img/Chapter5/5-5/1.png}
 	\caption{空闲表法}
 \end{figure}
 
@@ -396,7 +379,7 @@ Linux文件系统会为每个文件分配索引结点（inode）和目录项（d
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.5]{img/C5/5-5/2.png}
+	\includegraphics[scale=0.5]{img/Chapter5/5-5/2.png}
 	\caption{空闲链表法}
 \end{figure}
 
@@ -406,4 +389,6 @@ Linux文件系统会为每个文件分配索引结点（inode）和目录项（d
 
 \subsection{位图法（Bit Table）}
 
-位图是利用二进制的一位来表示磁盘中一个盘块的使用情况，磁盘上所有的盘块都有一个二进制位与之对应。当值为0时，表示对应的盘块空闲，值为1时，表示对应的盘块已分配。Linux文件系统就采用了位图的方式来管理空闲空间。
+位图是利用二进制的一位来表示磁盘中一个盘块的使用情况，磁盘上所有的盘块都有一个二进制位与之对应。当值为0时，表示对应的盘块空闲，值为1时，表示对应的盘块已分配。Linux文件系统就采用了位图的方式来管理空闲空间。\\
+
+\newpage

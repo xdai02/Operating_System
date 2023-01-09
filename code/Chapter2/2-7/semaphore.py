@@ -2,16 +2,16 @@ import multiprocessing
 import time
 
 def work(sema):
-    if sema.acquire():      # 获取信号量
-        print("【进程%d】开始办理业务" % 
+    if sema.acquire():
+        print("[Process %d] Start" % 
             multiprocessing.current_process().pid)
-        time.sleep(2)       # 模拟办理业务
-        print("【进程%d】结束办理业务" % 
+        time.sleep(2)       # simulate process execution
+        print("[Process %d] End" % 
             multiprocessing.current_process().pid)
-        sema.release()      # 释放资源
+        sema.release()
 
 def main():
-    # 允许3个进程并发执行
+    # allow 3 processes to execute concurrently
     sema = multiprocessing.Semaphore(3)
     workers = [
         multiprocessing.Process(target=work, args=(sema,))

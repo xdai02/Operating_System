@@ -23,7 +23,7 @@
 
 int main(int argc, char *argv[]) {
     int num;
-    printf("(stdin) enter an integer: ");
+    printf("(stdin) Enter an integer: ");
     fscanf(stdin, "%d", &num);
     fprintf(stdout, "(stdout) num = %d\n", num);
     fprintf(stderr, "(stderr) This is an error message.\n");
@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
 \begin{tcolorbox}
 	\mybox{运行结果}
 	\begin{verbatim}
-(stdin) enter an integer: 123
+(stdin) Enter an integer: 123
 (stdout) num = 123
 (stderr) This is an error message.
 	\end{verbatim}
@@ -49,50 +49,50 @@ int main(int argc, char *argv[]) {
 #include <stdlib.h>
 
 void writeFile(const char *filename) {
-    FILE *fp = fopen(filename, "w");
-    if(!fp) {
-        fprintf(stderr, "File open failed.\n");
-        exit(1);
-    }
-    char *name = "小灰";
-    int age = 17;
-    double height = 182.3;
-    fprintf(fp, "姓名：%s\n年龄：%d\n身高：%.2f\n", 
-                name, age, height);
-    fclose(fp);
+	FILE *fp = fopen(filename, "w");
+	if (!fp) {
+		fprintf(stderr, "File open failed.\n");
+		exit(1);
+	}
+	char *name = "Terry";
+	int age = 24;
+	double height = 179.8;
+	fprintf(fp, "Name: %s\nAge: %d\nHeight: %.2f\n",
+			name, age, height);
+	fclose(fp);
 }
 
 void readFile(const char *filename) {
-    FILE *fp = fopen(filename, "r");
-    if(!fp) {
-        fprintf(stderr, "File open failed.\n");
-        exit(1);
-    }
-    char name[32];
-    int age;
-    double height;
-    fscanf(fp, "姓名：%s\n年龄：%d\n身高：%lf\n", 
-                name, &age, &height);
-    printf("name: %s\n", name);
-    printf("age: %d\n", age);
-    printf("height: %.2f\n", height);
-    fclose(fp);
+	FILE *fp = fopen(filename, "r");
+	if (!fp) {
+		fprintf(stderr, "File open failed.\n");
+		exit(1);
+	}
+	char name[32];
+	int age;
+	double height;
+	fscanf(fp, "Name: %s\nAge: %d\nHeight: %lf\n",
+			name, &age, &height);
+	printf("name: %s\n", name);
+	printf("age: %d\n", age);
+	printf("height: %.2f\n", height);
+	fclose(fp);
 }
 
 int main(int argc, char *argv[]) {
-    const char *filename = "info.txt";
-    writeFile(filename);
-    readFile(filename);
-    return 0;
+	const char *filename = "info.txt";
+	writeFile(filename);
+	readFile(filename);
+	return 0;
 }
 \end{lstlisting}
 
 \begin{tcolorbox}
 	\mybox{运行结果}
 	\begin{verbatim}
-name: 小灰
-age: 17
-height: 182.30
+Name: Terry
+Age: 24
+Height: 179.80
 	\end{verbatim}
 \end{tcolorbox}
 
@@ -242,7 +242,7 @@ I/O控制方式包括：
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[scale=0.5]{img/C4/4-4/1.png}
+	\includegraphics[scale=0.5]{img/Chapter4/4-4/1.png}
 	\caption{磁盘}
 \end{figure}
 
